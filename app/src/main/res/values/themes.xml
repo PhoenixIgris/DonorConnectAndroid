@@ -1,0 +1,54 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.DonorConnect" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryVariant">@color/primaryDarkColor</item>
+        <item name="colorAccent">@color/primaryColor</item>
+        <item name="colorOnPrimary">@color/secondaryColor</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+
+    <style name="MediumTextView">
+        <item name="fontFamily">@font/inter_medium</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="H4TextView">
+        <item name="fontFamily">@font/inter_regular</item>
+        <item name="android:textSize">@dimen/_12dp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="CustomWhiteTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusBottomEnd">6dp</item>
+        <item name="boxCornerRadiusTopStart">6dp</item>
+        <item name="boxCornerRadiusTopEnd">6dp</item>
+        <item name="boxCornerRadiusBottomStart">6dp</item>
+        <item name="errorTextColor">@color/red_400</item>
+        <item name="boxStrokeColor">@color/primaryColor</item>
+        <item name="boxStrokeErrorColor">@color/red_400</item>
+    </style>
+
+    <style name="MediumTextInputEditText">
+        <item name="fontFamily">@font/inter_medium</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingVertical">@dimen/_15dp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+
+    <style name="Base.Theme.DonorConnect.ButtonStyle">
+        <item name="android:background">@drawable/button_background_filled</item>
+        <item name="fontFamily">@font/inter_medium</item>
+        <item name="android:textSize">@dimen/_16sp</item>
+        <item name="android:paddingVertical">@dimen/_10dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:elevation">0dp</item>
+    </style>
+</resources>

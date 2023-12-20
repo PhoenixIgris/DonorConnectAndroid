@@ -1,0 +1,105 @@
+{
+  "project_info": {
+    "project_number": "268188788369",
+    "project_id": "donorconnect-ad26d",
+    "storage_bucket": "donorconnect-ad26d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:268188788369:android:18501716e835c0b6f00130",
+        "android_client_info": {
+          "package_name": "com.buuzz.donorconnect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "268188788369-na1i41moqfc601io8kri115rrgudq2rq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.buuzz.donorconnect",
+            "certificate_hash": "92ca8fa31a6a7e1947b545ee9927e2a273120052"
+          }
+        },
+        {
+          "client_id": "268188788369-1vua2u6sgdq469jj1aot5ums5jo5c493.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvO9pzhKxSHGWQ9DZa0NBtVwSqG-cPMgk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "268188788369-1vua2u6sgdq469jj1aot5ums5jo5c493.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:268188788369:android:1887813791641e8ef00130",
+        "android_client_info": {
+          "package_name": "com.buuzz.donorconnect.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "268188788369-1vua2u6sgdq469jj1aot5ums5jo5c493.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvO9pzhKxSHGWQ9DZa0NBtVwSqG-cPMgk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "268188788369-1vua2u6sgdq469jj1aot5ums5jo5c493.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:268188788369:android:00521b35a3cd44b7f00130",
+        "android_client_info": {
+          "package_name": "com.buuzz.donorconnect.demo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "268188788369-1vua2u6sgdq469jj1aot5ums5jo5c493.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvO9pzhKxSHGWQ9DZa0NBtVwSqG-cPMgk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "268188788369-1vua2u6sgdq469jj1aot5ums5jo5c493.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
