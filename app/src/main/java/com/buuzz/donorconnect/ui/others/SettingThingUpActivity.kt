@@ -3,10 +3,9 @@ package com.buuzz.donorconnect.ui.others
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
-import com.buuzz.donorconnect.MainActivity
+import com.buuzz.donorconnect.ui.MainActivity
 import com.buuzz.donorconnect.R
 import com.buuzz.donorconnect.databinding.ActivitySettingThingUpBinding
 import com.buuzz.donorconnect.ui.base.BaseActivity

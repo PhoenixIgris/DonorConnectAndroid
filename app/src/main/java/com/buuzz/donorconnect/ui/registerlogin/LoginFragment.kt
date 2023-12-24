@@ -7,10 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.buuzz.donorconnect.MainActivity
+import com.buuzz.donorconnect.ui.MainActivity
 import com.buuzz.donorconnect.R
 import com.buuzz.donorconnect.databinding.FragmentLoginBinding
 import com.buuzz.donorconnect.ui.base.BaseFragment

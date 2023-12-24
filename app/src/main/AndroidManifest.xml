@@ -18,6 +18,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.postcreate.CreatePostActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.others.SettingThingUpActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="true"
@@ -32,7 +35,7 @@
             android:name=".ui.registerlogin.RegisterLoginActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="false" />
         <activity android:name=".ui.custom.NoInternetActivity" />
     </application>
