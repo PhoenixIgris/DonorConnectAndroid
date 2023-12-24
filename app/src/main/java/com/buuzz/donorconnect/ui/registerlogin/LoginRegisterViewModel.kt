@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.buuzz.donorconnect.data.model.request.UserRegisterRequestModel
 import com.buuzz.donorconnect.data.respository.UserRepository
+import com.buuzz.donorconnect.utils.apihelper.safeapicall.ApiCallListener
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
@@ -19,12 +20,12 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginRegisterViewModel @Inject constructor(
     private val userRepository: UserRepository
-
 ) : ViewModel() {
 
     internal var signUpState by mutableStateOf(SignUpFormState())
     private val signUpValidationEventChannel = Channel<SignUpValidationEvent>()
     internal val validationEvent = signUpValidationEventChannel.receiveAsFlow()
+
     internal fun onEvent(event: SignUpFormEvent) {
         viewModelScope.launch(Dispatchers.IO) {
             when (event) {
@@ -146,6 +147,22 @@ class LoginRegisterViewModel @Inject constructor(
             )
         }
 
+
+    internal fun validateEmail(email: String): Pair<Boolean, String> {
+        return userRepository.validateEmail(email)
+    }
+
+
+    internal fun validatePassword(password: String?): Pair<Boolean, String> {
+        return userRepository.validatePassword(password)
+    }
+
+
+    internal fun login(email: String?, password: String?, callback: ApiCallListener) {
+        viewModelScope.launch {
+            userRepository.loginUser(email, password, callback)
+        }
+    }
 
 }
 

@@ -104,7 +104,7 @@ object RetrofitModule {
         return Interceptor { chain ->
             val original = chain.request()
             val request = original.newBuilder()
-                .header("Authorization", sharedPreferencesHelper.accessToken ?: "")
+                .header("Authorization", "Bearer " + sharedPreferencesHelper.accessToken)
                 .method(original.method, original.body)
                 .build()
             chain.proceed(request)
@@ -118,9 +118,6 @@ object RetrofitModule {
         retrofit.create(
             MainApi::class.java
         )
-
-
-
 
 
     @Singleton

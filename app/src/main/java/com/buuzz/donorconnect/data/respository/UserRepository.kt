@@ -1,18 +1,26 @@
 package com.buuzz.donorconnect.data.respository
 
 import android.util.Patterns
+import com.buuzz.donorconnect.data.local.DataStoreHelper
+import com.buuzz.donorconnect.data.local.SharedPreferencesHelper
 import com.buuzz.donorconnect.data.model.request.UserRegisterRequestModel
+import com.buuzz.donorconnect.data.model.response.RegisterDataModel
 import com.buuzz.donorconnect.data.remote.MainApi
 import com.buuzz.donorconnect.ui.registerlogin.SignUpFormState
 import com.buuzz.donorconnect.ui.registerlogin.SignUpValidationEvent
+import com.buuzz.donorconnect.utils.apihelper.safeapicall.ApiCallListener
 import com.buuzz.donorconnect.utils.apihelper.safeapicall.Resource
 import com.buuzz.donorconnect.utils.apihelper.safeapicall.SafeApiCall
+import com.buuzz.donorconnect.utils.helpers.AppData
+import com.google.gson.Gson
 import kotlinx.coroutines.channels.Channel
 import javax.inject.Inject
 
 
 class UserRepository @Inject constructor(
-    private val mainApi: MainApi
+    private val mainApi: MainApi,
+    private val dataStoreHelper: DataStoreHelper,
+    private val sharedPreferencesHelper: SharedPreferencesHelper
 ) {
 
 
@@ -30,9 +38,23 @@ class UserRepository @Inject constructor(
             }
 
             is Resource.Success -> {
-                signUpValidationEventChannel.send(SignUpValidationEvent.Success(response.value))
+                if (response.value.success == true) {
+                    signUpValidationEventChannel.send(SignUpValidationEvent.Success(response.value.message))
+                    saveUserDetails(response.value.data)
+                } else {
+                    signUpValidationEventChannel.send(
+                        SignUpValidationEvent.Failure(
+                            response.value.message ?: "Error Signing up"
+                        )
+                    )
+                }
             }
         }
+    }
+
+    private fun saveUserDetails(data: RegisterDataModel?) {
+
+
     }
 
 
@@ -89,5 +111,41 @@ class UserRepository @Inject constructor(
         return true to ""
     }
 
+    suspend fun loginUser(email: String?, password: String?, callback: ApiCallListener) {
+        when (val response = SafeApiCall.execute { mainApi.login(email, password) }) {
+            is Resource.Failure -> {
+                callback.onError(response.errorMsg)
+            }
+
+            is Resource.Success -> {
+                if (response.value.success == true) {
+                    sharedPreferencesHelper.accessToken = response.value.data?.token
+                    dataStoreHelper.saveStringToDatastore(
+                        AppData.USER_DETAILS to Gson().toJson(
+                            response.value.data?.user_details
+                        )
+                    )
+                    dataStoreHelper.saveBooleanToDatastore(AppData.IS_USER_LOGGED_IN to true)
+                    callback.onSuccess(response.value.message)
+                } else {
+                    callback.onError(response.value.message)
+                }
+
+            }
+        }
+    }
+
+    suspend fun fetchUserDetails() {
+        when (val response = SafeApiCall.execute { mainApi.fetchUserDetails() }) {
+            is Resource.Failure -> {}
+            is Resource.Success -> {
+                dataStoreHelper.saveStringToDatastore(
+                    AppData.USER_DETAILS to Gson().toJson(
+                        response.value
+                    )
+                )
+            }
+        }
+    }
 
 }

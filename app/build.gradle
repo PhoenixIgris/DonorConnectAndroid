@@ -36,6 +36,16 @@ android {
             force 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0'
         }
     }
+    sourceSets {
+        main {
+            res.srcDirs = [
+                    'src/main/res',
+                    'src/main/res/drawable/customshapes',
+                    'src/main/res/layout/custom',
+            ]
+
+        }
+    }
 }
 
 dependencies {
@@ -51,6 +61,7 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0"
     implementation 'androidx.annotation:annotation:1.6.0'
     implementation 'com.google.firebase:firebase-auth-ktx:22.1.1'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
@@ -101,5 +112,7 @@ dependencies {
     def lottieVersion = "5.0.3"
     implementation "com.airbnb.android:lottie:$lottieVersion"
     implementation "com.airbnb.android:lottie-compose:4.0.0"
+    implementation 'androidx.core:core-splashscreen:1.0.1'
+
     implementation 'androidx.core:core-splashscreen:1.0.1'
 }

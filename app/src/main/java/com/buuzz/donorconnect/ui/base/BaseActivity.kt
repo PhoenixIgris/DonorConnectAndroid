@@ -1,8 +1,10 @@
 package com.buuzz.donorconnect.ui.base
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.buuzz.donorconnect.ui.custom.NoInternetActivity
 import com.buuzz.donorconnect.utils.apihelper.InternetConnectionCallback
 import com.buuzz.donorconnect.utils.apihelper.InternetConnectionChecker
 
@@ -24,7 +26,7 @@ open class BaseActivity : AppCompatActivity(), InternetConnectionCallback {
     }
 
     override fun onDisconnected() {
-        Log.d(TAG, "onDisconnected: ")
+        startActivity(Intent(this, NoInternetActivity::class.java))
     }
 
 }

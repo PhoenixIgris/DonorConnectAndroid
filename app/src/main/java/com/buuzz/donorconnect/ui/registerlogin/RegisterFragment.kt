@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.buuzz.donorconnect.R
 import com.buuzz.donorconnect.databinding.FragmentRegisterBinding
+import com.buuzz.donorconnect.ui.base.BaseFragment
 import com.buuzz.donorconnect.utils.helpers.onTextChanged
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,7 +21,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class RegisterFragment : Fragment() {
+class RegisterFragment : BaseFragment() {
     private lateinit var binding: FragmentRegisterBinding
     private val sharedViewModel: LoginRegisterViewModel by activityViewModels()
     private var isLoading = false
@@ -42,9 +43,7 @@ class RegisterFragment : Fragment() {
                 when (it) {
                     is SignUpValidationEvent.Failure -> {
                         isLoading = false
-                        Toast.makeText(
-                            requireContext(), it.errorMessage, Toast.LENGTH_SHORT
-                        ).show()
+                        showErrorDialog(message = it.errorMessage, btn_text_no = null)
                         updateView()
                     }
 
@@ -55,7 +54,8 @@ class RegisterFragment : Fragment() {
 
                     is SignUpValidationEvent.Success -> {
                         isLoading = false
-
+                        updateView()
+                        findNavController().popBackStack()
                     }
 
                     SignUpValidationEvent.UpdateData -> {

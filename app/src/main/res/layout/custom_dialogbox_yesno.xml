@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_error_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="0dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/_8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/_24dp">
+
+                <TextView
+                    android:id="@+id/tv_dialog_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_medium"
+                    android:lineSpacingMultiplier="0.9"
+                    android:text="Unexpected Error Occurred!"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_16sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_16dp">
+
+                    <LinearLayout
+                        android:id="@+id/btn_no"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40dp"
+                        android:layout_margin="@dimen/_4dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/rounded_activated_bg"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/btn_negative"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_semi_bold"
+                            android:gravity="center"
+                            android:paddingStart="@dimen/_4dp"
+                            android:paddingEnd="@dimen/_4dp"
+                            android:text="Cancel"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="@color/primaryColor"
+                            android:textSize="@dimen/_14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/btn_yes"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/_4dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/rounded_moderate_bg"
+                        android:backgroundTint="@color/primaryColor"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/btn_positive"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_semi_bold"
+                            android:gravity="center"
+                            android:paddingStart="@dimen/_4dp"
+                            android:paddingEnd="@dimen/_4dp"
+                            android:text="Yes"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/_14sp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>
