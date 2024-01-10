@@ -35,11 +35,11 @@ android {
             minifyEnabled false
             shrinkResources false
             debuggable false
-            buildConfigField("String", "API_URL", '"https://api3.sunya.health/"')
+            buildConfigField("String", "API_URL", '"http://192.168.1.78:8000/"')
             applicationIdSuffix ".donorconnect.demo"
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField("String", "APP_TYPE", '"donor_connect"')
-            buildConfigField("String", "APP_NAME", '"DonorConnect"')
+            buildConfigField("String", "APP_NAME", '"DonorConnect Demo"')
             resValue "string", "APP_NAME", "DonorConnect"
             manifestPlaceholders = [
                     appIcon     : "@mipmap/ic_launcher_round",
