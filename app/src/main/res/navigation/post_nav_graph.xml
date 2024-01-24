@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/post_nav_graph"
+    app:startDestination="@id/postDetailFragment">
+
+    <fragment
+        android:id="@+id/postDetailFragment"
+        android:name="com.buuzz.donorconnect.ui.post.view.fragments.postdetail.PostDetailFragment"
+        android:label="PostDetailFragment"
+        tools:layout="@layout/fragment_post_detail" />
+</navigation>

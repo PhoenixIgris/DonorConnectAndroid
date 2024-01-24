@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.buuzz.donorconnect.data.local.DataStoreHelper
+import com.buuzz.donorconnect.data.respository.ContentRepository
 import com.buuzz.donorconnect.data.respository.UserRepository
 import com.buuzz.donorconnect.utils.helpers.AppData
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +17,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SettingThingsUpViewModel @Inject constructor(
     private val userRepository: UserRepository,
-    private val dataStoreHelper: DataStoreHelper
+    private val dataStoreHelper: DataStoreHelper,
+    private val contentRepository: ContentRepository
 ) : ViewModel() {
     private val _fetchCompleteLiveData = MutableLiveData<Boolean>()
     val fetchCompleteLiveData: LiveData<Boolean> get() = _fetchCompleteLiveData
@@ -45,7 +47,12 @@ class SettingThingsUpViewModel @Inject constructor(
         return LinkedList<suspend () -> Unit>().apply {
             add { fetchUserDetails() }
             add { checkUserLoggedIn() }
+            add { getInitContents() }
         }
+    }
+
+    private suspend fun getInitContents() {
+        contentRepository.getInitContents()
     }
 
     private suspend fun checkUserLoggedIn() {

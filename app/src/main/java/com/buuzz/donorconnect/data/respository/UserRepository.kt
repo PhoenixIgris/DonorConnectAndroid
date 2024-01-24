@@ -125,6 +125,7 @@ class UserRepository @Inject constructor(
                             response.value.data?.user_details
                         )
                     )
+                    dataStoreHelper.saveStringToDatastore(AppData.USER_ID to response.value.data?.user_details?.id.toString())
                     dataStoreHelper.saveBooleanToDatastore(AppData.IS_USER_LOGGED_IN to true)
                     callback.onSuccess(response.value.message)
                 } else {
@@ -144,6 +145,8 @@ class UserRepository @Inject constructor(
                         response.value
                     )
                 )
+                dataStoreHelper.saveStringToDatastore(AppData.USER_ID to response.value.id.toString())
+
             }
         }
     }

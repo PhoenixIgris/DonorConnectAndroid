@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+
+    tools:context=".ui.home.HomeFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_margin="@dimen/_16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <ImageView
+            android:id="@+id/back_btn"
+            android:layout_width="@dimen/_50dp"
+            android:layout_height="@dimen/_50dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/circle_background"
+            android:padding="@dimen/_10dp"
+            android:src="@drawable/ic_back" />
+
+        <ImageView
+            android:id="@+id/bookmark_btn"
+            android:layout_width="@dimen/_50dp"
+            android:layout_height="@dimen/_50dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="@dimen/_10dp"
+            android:layout_toStartOf="@+id/menu"
+            android:background="@drawable/circle_background"
+            android:padding="@dimen/_10dp"
+            android:src="@drawable/ic_bookmark" />
+
+        <ImageView
+            android:id="@+id/menu"
+            android:layout_width="@dimen/_50dp"
+            android:layout_height="@dimen/_50dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/circle_background"
+            android:padding="@dimen/_10dp"
+            android:src="@drawable/ic_notification" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:elevation="-10dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/donation_placeholder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideLine">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/black_overlay_gradient"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/_16dp"
+            android:paddingTop="@dimen/_16dp"
+            android:paddingBottom="@dimen/_50dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/primaryLightColor"
+                app:cardCornerRadius="@dimen/_18dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_medium"
+                    android:paddingHorizontal="@dimen/_10dp"
+                    android:paddingVertical="@dimen/_5dp"
+                    android:text="Cloth"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14sp" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_semi_bold"
+                android:text="A good condition shirt available . Do you Need it?"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_32sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_regular"
+                    android:text="Cloth | Supplies"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14sp" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="@dimen/_8dp"
+                    android:layout_height="@dimen/_8dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_10dp"
+                    app:cardBackgroundColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14sp"
+                    tools:text="Feb 27, 2023" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="-30dp"
+            app:cardCornerRadius="@dimen/_40dp"
+            app:cardElevation="0dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_16dp"
+                android:paddingVertical="@dimen/_24dp">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/user_image"
+                    android:layout_width="@dimen/_60dp"
+                    android:layout_height="@dimen/_60dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/person_placeholder" />
+
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10dp"
+                    android:layout_toEndOf="@+id/user_image"
+                    android:fontFamily="@font/inter_semi_bold"
+                    android:gravity="center_vertical"
+                    android:text="Sophia Durst"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_28sp"
+                    app:layout_constraintStart_toEndOf="@+id/user_image"
+                    app:layout_constraintTop_toTopOf="@+id/user_image" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="@+id/user_name"
+                    app:layout_constraintTop_toBottomOf="@+id/user_name">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="@dimen/_5dp"
+                        android:fontFamily="@font/inter_regular"
+                        android:text="Likes"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_14sp"
+                        app:drawableStartCompat="@drawable/ic_heart" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="@dimen/_8dp"
+                        android:layout_height="@dimen/_8dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/_10dp"
+                        app:cardBackgroundColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10dp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_14sp"
+                        tools:text="Feb 27, 2023" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

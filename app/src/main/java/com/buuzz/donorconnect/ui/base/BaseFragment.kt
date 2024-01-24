@@ -1,7 +1,12 @@
 package com.buuzz.donorconnect.ui.base
 
+import android.view.Gravity
+import android.view.View
+import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import com.buuzz.donorconnect.ui.custom.CustomYesNoDialog
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 
 
 open class BaseFragment : Fragment() {
@@ -31,5 +36,16 @@ open class BaseFragment : Fragment() {
     fun dismissErrorDialog() {
         errorDialog?.dismissYesNoDialog()
     }
+
+    fun showTopSnackBar(view: View, message: String) {
+        val snackBar = Snackbar.make(view, message, Snackbar.LENGTH_LONG)
+        val snackBarView = snackBar.view
+        val params = snackBarView.layoutParams as FrameLayout.LayoutParams
+        params.gravity = Gravity.TOP
+        snackBarView.layoutParams = params
+        snackBar.animationMode = BaseTransientBottomBar.ANIMATION_MODE_FADE
+        snackBar.show()
+    }
+
 
 }

@@ -6,6 +6,7 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.util.Log
+import com.buuzz.donorconnect.utils.helpers.AppLogger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -41,13 +42,13 @@ object InternetConnectionChecker {
             connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
         if (capabilities != null) {
             if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-                Log.d(TAG, "NetworkCapabilities.TRANSPORT_CELLULAR")
+                AppLogger.logD(TAG, "NetworkCapabilities.TRANSPORT_CELLULAR")
                 return true
             } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                Log.d(TAG, "NetworkCapabilities.TRANSPORT_WIFI")
+                AppLogger.logD(TAG, "NetworkCapabilities.TRANSPORT_WIFI")
                 return true
             } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
-                Log.d(TAG, "NetworkCapabilities.TRANSPORT_ETHERNET")
+                AppLogger.logD(TAG, "NetworkCapabilities.TRANSPORT_ETHERNET")
                 return true
             }
         }

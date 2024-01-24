@@ -1,9 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.postcreate.CreatePostActivity">
+    tools:context=".ui.post.create.CreatePostActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:id="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/back_btn"
+            android:layout_width="@dimen/_30dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_8dp"
+            android:src="@drawable/ic_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/_10dp"
+            android:fontFamily="@font/inter_bold"
+            android:gravity="center"
+            android:text="Create Post"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_18sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1dp"
+        android:layout_below="@id/tool_bar"
+        android:alpha="0.7"
+        android:background="@color/gray_200" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tool_bar"
+        android:layout_marginBottom="@dimen/_80dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/_24dp">
+
+            <com.buuzz.donorconnect.ui.custom.DocumentDisplayView
+                android:id="@+id/photo"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_300dp"
+                android:layout_marginBottom="@dimen/_16dp"
+                app:instruction="Upload Item Photo" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_semi_bold"
+                    android:text="Title"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_16sp" />
+
+                <EditText
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_48dp"
+                    android:layout_marginTop="@dimen/_4dp"
+                    android:background="@drawable/rounded_moderate_bg"
+                    android:fontFamily="@font/inter_medium"
+                    android:gravity="center_vertical"
+                    android:hint="Enter the title"
+                    android:paddingHorizontal="@dimen/_12dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_semi_bold"
+                    android:text="Description"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_16sp" />
+
+                <EditText
+                    android:id="@+id/description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4dp"
+                    android:background="@drawable/rounded_moderate_bg"
+                    android:fontFamily="@font/inter_medium"
+                    android:gravity="top"
+                    android:hint="Describe the item"
+                    android:inputType="textMultiLine"
+                    android:minLines="10"
+                    android:padding="@dimen/_12dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_semi_bold"
+                    android:text="Condition"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:id="@+id/categoryList"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_48dp"
+                    android:layout_marginTop="@dimen/_4dp"
+                    android:background="@drawable/rounded_moderate_bg"
+                    android:drawableEnd="@drawable/ic_dropdown"
+                    android:fontFamily="@font/inter_medium"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="@dimen/_12dp"
+                    android:text="Select Item Condition"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_14sp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_semi_bold"
+                    android:text="Choose Your Tags"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_16sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/tag_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4dp"
+                    app:spanCount="12"
+                    tools:listitem="@layout/item_tag" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/submit"
+        style="@style/Base.Theme.DonorConnect.ButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/_24dp"
+        android:text="Create Post"
+        android:textAllCaps="true"
+        android:textColor="@color/white" />
+</RelativeLayout>

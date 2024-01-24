@@ -6,6 +6,7 @@ import com.buuzz.donorconnect.data.local.SharedPreferencesHelper
 import com.buuzz.donorconnect.data.remote.TokenRefreshApi
 import com.buuzz.donorconnect.utils.apihelper.safeapicall.Resource
 import com.buuzz.donorconnect.utils.apihelper.safeapicall.SafeApiCall
+import com.buuzz.donorconnect.utils.helpers.AppLogger
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator
@@ -30,7 +31,7 @@ class AccessAuthenticator
         return runBlocking {
             when (val newToken = getRefreshedToken(tokenRefreshApi)) {
                 is Resource.Success -> {
-                    Log.d(TAG, "authenticate: Token Refreshed")
+                    AppLogger.logD(TAG, "authenticate: Token Refreshed")
                     sharedPreferencesHelper.accessToken = newToken.value.toString()
                     response.request.newBuilder()
                         .addHeader(
@@ -40,7 +41,7 @@ class AccessAuthenticator
                 }
 
                 else -> {
-                    Log.d(TAG, "authenticate: Token Refresh Failed")
+                    AppLogger.logD(TAG, "authenticate: Token Refresh Failed")
                     startTokenExpiryHandlerActivity()
                     null
                 }

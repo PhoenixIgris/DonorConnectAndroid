@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.buuzz.donorconnect.utils.helpers.AppLogger
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
@@ -39,7 +40,7 @@ class DataStoreHelper @Inject constructor(
 
     suspend fun saveStringToDatastore(data: Pair<String, String>) =
         withContext(Dispatchers.IO) {
-            Log.d("DataStoreHelper", "saveStringToDatastore: $data")
+            AppLogger.logD("DataStoreHelper", "saveStringToDatastore: $data")
             val prefKey = stringPreferencesKey(data.first)
             dataStore.edit {
                 it[prefKey] = data.second
@@ -50,13 +51,13 @@ class DataStoreHelper @Inject constructor(
         withContext(Dispatchers.IO) {
             val datastoreKey = stringPreferencesKey(key)
             val value = dataStore.data.first()[datastoreKey]
-            Log.d("DataStoreHelper", "readStringFromDatastore: $key -> $value")
+            AppLogger.logD("DataStoreHelper", "readStringFromDatastore: $key -> $value")
             return@withContext value
         }
 
     suspend fun saveBooleanToDatastore(data: Pair<String, Boolean>) =
         withContext(Dispatchers.IO) {
-            Log.d("DataStoreHelper", "saveBooleanToDatastore: $data")
+            AppLogger.logD("DataStoreHelper", "saveBooleanToDatastore: $data")
             val prefKey = booleanPreferencesKey(data.first)
             dataStore.edit {
                 it[prefKey] = data.second
@@ -67,7 +68,7 @@ class DataStoreHelper @Inject constructor(
         withContext(Dispatchers.IO) {
             val datastoreKey = booleanPreferencesKey(key)
             val value = dataStore.data.first()[datastoreKey] ?: false
-            Log.d("DataStoreHelper", "readBooleanFromDatastore: $key -> $value")
+            AppLogger.logD("DataStoreHelper", "readBooleanFromDatastore: $key -> $value")
             return@withContext value
         }
 

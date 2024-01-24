@@ -16,7 +16,7 @@
 
 
     <color name="primaryColor">#3087E6</color>
-    <color name="primaryLightColor">#2A77CC</color>
+    <color name="primaryLightColor">#649EDB</color>
     <color name="primaryDarkColor">#2671D6</color>
     <color name="secondaryColor">#2796b2</color>
     <color name="secondaryLightColor">#65c7e4</color>
@@ -253,4 +253,8 @@
     <color name="light_blue_A200">#FF40C4FF</color>
     <color name="light_blue_A400">#FF00B0FF</color>
     <color name="black_overlay">#66000000</color>
+
+    <color name="light_transparent">#30CCCCCC</color>
+    <color name="card_background_gray">@color/gray_100</color>
+    <color name="text_gray">@color/gray_400</color>
 </resources>
