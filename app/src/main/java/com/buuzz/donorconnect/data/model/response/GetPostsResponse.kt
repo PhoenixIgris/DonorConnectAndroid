@@ -1,6 +1,6 @@
 package com.buuzz.donorconnect.data.model.response
 
-data class GetPostResponse(
+data class GetPostsResponse(
     val message: String? = null,
     val posts: List<Post>? = emptyList(),
     val success: Boolean? = null

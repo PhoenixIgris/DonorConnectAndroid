@@ -4,6 +4,7 @@ import com.buuzz.donorconnect.data.local.DataStoreHelper
 import com.buuzz.donorconnect.data.local.SharedPreferencesHelper
 import com.buuzz.donorconnect.data.model.request.PostCreateModel
 import com.buuzz.donorconnect.data.model.response.Category
+import com.buuzz.donorconnect.data.model.response.GetPostResponse
 import com.buuzz.donorconnect.data.model.response.GetPostsResponse
 import com.buuzz.donorconnect.data.model.response.InitContentData
 import com.buuzz.donorconnect.data.model.response.ResponseModel
@@ -92,8 +93,8 @@ class ContentRepository @Inject constructor(
         return SafeApiCall.execute { mainApi.getAllPosts(dataStoreHelper.readStringFromDatastore(AppData.USER_ID)) }
     }
 
-    suspend fun getPost(post_id: String?) : Resource<GetPostsResponse>{
-        return SafeApiCall.execute { mainApi.getPostsByCategory(post_id) }
+    suspend fun getPost(post_id: String?) : Resource<GetPostResponse>{
+        return SafeApiCall.execute { mainApi.getPost(post_id) }
     }
 
 }

@@ -2,6 +2,7 @@ package com.buuzz.donorconnect.data.remote
 
 import com.buuzz.donorconnect.data.model.request.PostCreateModel
 import com.buuzz.donorconnect.data.model.request.UserRegisterRequestModel
+import com.buuzz.donorconnect.data.model.response.GetPostResponse
 import com.buuzz.donorconnect.data.model.response.GetPostsResponse
 import com.buuzz.donorconnect.data.model.response.InitContentResponse
 import com.buuzz.donorconnect.data.model.response.ResponseModel
@@ -58,5 +59,5 @@ interface MainApi {
     @POST(ApiEndPoints.GET_POST)
     suspend fun getPost(
         @Field("post_id") post: String?
-    ): Response<GetPostsResponse>
+    ): Response<GetPostResponse>
 }

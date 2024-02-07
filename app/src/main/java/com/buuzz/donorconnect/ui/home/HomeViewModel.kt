@@ -67,7 +67,7 @@ class HomeViewModel @Inject constructor(
 
                 is Resource.Success -> {
                     if (response.value.success == true) {
-                        apiCallListener.onSuccess(Gson().toJson(response.value.posts))
+                        apiCallListener.onSuccess(Gson().toJson(response.value.data?.post_detail))
                     } else {
                         apiCallListener.onError(response.value.message)
                     }

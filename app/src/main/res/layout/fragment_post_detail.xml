@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-
+    android:fitsSystemWindows="true"
     tools:context=".ui.home.HomeFragment">
 
     <RelativeLayout
@@ -23,6 +23,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:background="@drawable/circle_background"
+            android:backgroundTint="#767676"
             android:padding="@dimen/_10dp"
             android:src="@drawable/ic_back" />
 
@@ -30,6 +31,7 @@
             android:id="@+id/bookmark_btn"
             android:layout_width="@dimen/_50dp"
             android:layout_height="@dimen/_50dp"
+            android:backgroundTint="#767676"
             android:layout_alignParentTop="true"
             android:layout_marginEnd="@dimen/_10dp"
             android:layout_toStartOf="@+id/menu"
@@ -39,14 +41,26 @@
 
         <ImageView
             android:id="@+id/menu"
+            android:backgroundTint="#767676"
             android:layout_width="@dimen/_50dp"
             android:layout_height="@dimen/_50dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:background="@drawable/circle_background"
             android:padding="@dimen/_10dp"
-            android:src="@drawable/ic_notification" />
+            android:src="@drawable/ic_filter" />
     </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/black_overlay_gradient"
+        android:elevation="-5dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:layout_width="match_parent"
@@ -55,135 +69,96 @@
         android:scaleType="centerCrop"
         android:src="@drawable/donation_placeholder"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.8"
+        app:layout_constraintHeight_percent="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_30dp"
+        app:cardBackgroundColor="@color/light_transparent"
+        app:cardCornerRadius="@dimen/_18dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_medium"
+            android:paddingHorizontal="@dimen/_10dp"
+            android:paddingVertical="@dimen/_5dp"
+            android:text="Cloth"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sp" />
+    </com.google.android.material.card.MaterialCardView>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideLine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.3" />
+        app:layout_constraintGuide_percent="0.40" />
 
-    <LinearLayout
-        android:layout_width="0dp"
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical"
+        android:layout_marginTop="-20dp"
+        app:cardBackgroundColor="@color/card_background_gray"
+        app:cardCornerRadius="@dimen/_40dp"
+        app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideLine">
 
-        <LinearLayout
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/black_overlay_gradient"
-            android:orientation="vertical"
-            android:paddingHorizontal="@dimen/_16dp"
-            android:paddingTop="@dimen/_16dp"
-            android:paddingBottom="@dimen/_50dp">
+            android:paddingHorizontal="@dimen/_24dp"
+            android:paddingVertical="@dimen/_32dp">
 
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/primaryLightColor"
-                app:cardCornerRadius="@dimen/_18dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_medium"
-                    android:paddingHorizontal="@dimen/_10dp"
-                    android:paddingVertical="@dimen/_5dp"
-                    android:text="Cloth"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_14sp" />
-            </com.google.android.material.card.MaterialCardView>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/inter_semi_bold"
-                android:text="A good condition shirt available . Do you Need it?"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_32sp" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_regular"
-                    android:text="Cloth | Supplies"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_14sp" />
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="@dimen/_8dp"
-                    android:layout_height="@dimen/_8dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/_10dp"
-                    app:cardBackgroundColor="@color/white" />
-
-                <TextView
-                    android:id="@+id/date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_10dp"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_14sp"
-                    tools:text="Feb 27, 2023" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="-30dp"
-            app:cardCornerRadius="@dimen/_40dp"
-            app:cardElevation="0dp">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <RelativeLayout
+                android:id="@+id/post_info_lyt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="@dimen/_16dp"
-                android:paddingVertical="@dimen/_24dp">
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/user_image"
-                    android:layout_width="@dimen/_60dp"
-                    android:layout_height="@dimen/_60dp"
-                    android:scaleType="centerCrop"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/person_placeholder" />
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/user_name"
+                    android:id="@+id/tag_list"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_10dp"
-                    android:layout_toEndOf="@+id/user_image"
-                    android:fontFamily="@font/inter_semi_bold"
-                    android:gravity="center_vertical"
-                    android:text="Sophia Durst"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Stationery | Supplies"
+                    android:textColor="@color/gray_500"
+                    android:textSize="@dimen/_14sp" />
+
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tag_list"
+                    android:layout_marginTop="@dimen/_5dp"
+                    android:fontFamily="@font/inter_bold"
+                    android:text="School bag, perfect Condition. Anyone need?"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_28sp"
-                    app:layout_constraintStart_toEndOf="@+id/user_image"
-                    app:layout_constraintTop_toTopOf="@+id/user_image" />
+                    android:textSize="@dimen/_22sp" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintStart_toStartOf="@+id/user_name"
-                    app:layout_constraintTop_toBottomOf="@+id/user_name">
+                    android:layout_below="@+id/title"
+                    android:layout_marginTop="@dimen/_16dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -195,27 +170,138 @@
                         android:textSize="@dimen/_14sp"
                         app:drawableStartCompat="@drawable/ic_heart" />
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="@dimen/_8dp"
-                        android:layout_height="@dimen/_8dp"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/_10dp"
-                        app:cardBackgroundColor="@color/white" />
-
                     <TextView
-                        android:id="@+id/date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_10dp"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:textColor="@color/white"
+                        android:drawablePadding="@dimen/_5dp"
+                        android:fontFamily="@font/inter_regular"
+                        android:text="Share"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/_14sp"
-                        tools:text="Feb 27, 2023" />
-                </LinearLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                        app:drawableStartCompat="@drawable/ic_share" />
 
-        </com.google.android.material.card.MaterialCardView>
-    </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10dp"
+                        android:drawablePadding="@dimen/_5dp"
+                        android:fontFamily="@font/inter_regular"
+                        android:text="2 people"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_14sp"
+                        app:drawableStartCompat="@drawable/ic_pending_person" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="@dimen/_8dp"
+                            android:layout_height="@dimen/_8dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="@dimen/_10dp"
+                            app:cardBackgroundColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10dp"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_14sp"
+                            android:text="Feb 27, 2023" />
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_24dp"
+                android:background="@color/white"
+                app:cardCornerRadius="@dimen/_12dp"
+                app:cardElevation="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/post_info_lyt">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_16dp">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/user_image"
+                        android:layout_width="@dimen/_50dp"
+                        android:layout_height="@dimen/_50dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/person_placeholder" />
+
+                    <TextView
+                        android:id="@+id/user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="@dimen/_10dp"
+                        android:layout_toEndOf="@+id/user_image"
+                        android:fontFamily="@font/inter_semi_bold"
+                        android:gravity="center_vertical"
+                        android:text="Sophia Durst"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_18sp" />
+
+                    <TextView
+                        android:id="@+id/user_desc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/user_name"
+                        android:layout_marginStart="@dimen/_10dp"
+                        android:layout_toEndOf="@+id/user_image"
+                        android:fontFamily="@font/inter_semi_bold"
+                        android:gravity="center_vertical"
+                        android:text="Owner"
+                        android:textAllCaps="true"
+                        android:textColor="@color/primaryColor"
+                        android:textSize="@dimen/_16dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/user_desc"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginTop="@dimen/_16dp"
+                        android:fontFamily="@font/inter_regular"
+                        android:text="Offering a school bag in perfect condition! Ideal for students looking for a reliable and well-maintained bag. Spacious compartments, sturdy construction, and stylish design. Ready for a new school year or anyone in need of a quality backpack. DM if interested! 🎒✨ #SchoolBagForSale #BackToSchool"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_14sp" />
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <Button
+        android:id="@+id/request_btn"
+        style="@style/Base.Theme.DonorConnect.ButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/_24dp"
+        android:layout_marginTop="20dp"
+        android:text="Request"
+        android:textAllCaps="true"
+        android:textFontWeight="500"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

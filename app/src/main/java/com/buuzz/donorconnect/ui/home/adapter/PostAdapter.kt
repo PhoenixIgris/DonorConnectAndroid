@@ -43,11 +43,11 @@ class PostAdapter(
                     .placeholder(R.drawable.donation_placeholder)
                     .into(binding.image)
                 Glide.with(binding.root.context).load(data.user_image)
-                    .placeholder(R.drawable.person_holder)
+                    .placeholder(R.drawable.person_placeholder)
                     .into(binding.userImage)
                 val tagNames = tags.filter { data.tag_id?.contains(it.id) == true }.map { it.name }
                 tagList.text = tagNames.joinToString(" | ")
-                title.text = data.title + ", This is useful for various purposes"
+                title.text = "School bag, perfect Condition. Anyone need?"
 //                userName.text = data.user_id
                 date.text = formatDate(data.created_at)
                 binding.root.setOnClickListener {

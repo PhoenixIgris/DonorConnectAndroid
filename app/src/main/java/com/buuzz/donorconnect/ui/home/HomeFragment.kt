@@ -1,5 +1,6 @@
 package com.buuzz.donorconnect.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,8 +15,10 @@ import com.buuzz.donorconnect.databinding.FragmentHomeBinding
 import com.buuzz.donorconnect.ui.base.BaseFragment
 import com.buuzz.donorconnect.ui.home.adapter.PostAdapter
 import com.buuzz.donorconnect.ui.post.ActionType
+import com.buuzz.donorconnect.ui.post.view.PostActivity
 import com.buuzz.donorconnect.utils.apihelper.safeapicall.ApiCallListener
 import com.buuzz.donorconnect.utils.helpers.AppLogger
+import com.buuzz.donorconnect.utils.helpers.IntentParams
 import com.buuzz.donorconnect.utils.helpers.OnActionClicked
 import com.google.android.material.tabs.TabLayout
 import com.google.gson.Gson
@@ -109,11 +112,12 @@ class HomeFragment : BaseFragment(), OnActionClicked {
 
     private fun getPostById(postId: String?) {
         binding.loading.isVisible = true
-        viewModel.getPosts(postId, object : ApiCallListener {
+        viewModel.getPostById(postId, object : ApiCallListener {
             override fun onSuccess(response: String?) {
-                val post = Gson().fromJson(response, Post::class.java)
-
                 binding.loading.isVisible = false
+                val intent = Intent(requireContext(), PostActivity::class.java)
+                intent.putExtra(IntentParams.POST_DETAIL, response)
+                startActivity(intent)
             }
 
             override fun onError(errorMessage: String?) {

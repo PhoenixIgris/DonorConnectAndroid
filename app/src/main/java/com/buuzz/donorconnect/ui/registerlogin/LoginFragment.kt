@@ -64,7 +64,6 @@ class LoginFragment : BaseFragment() {
     }
 
 
-
     private fun loginUser() {
         binding.progressBar.isVisible = true
         sharedViewModel.login(
