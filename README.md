@@ -24,11 +24,11 @@ To run DonorConnect on your Android device, follow these steps:
 
 ## Screenshots
 
-![Register Screen](screenshots/register_screen.png)
-![Login Screen](screenshots/login_screen.png)
-![Post List Screen](screenshots/postlist_screen.png)
-![Create Post Screen](screenshots/create_post_screen.png)
-![View Post Screen](screenshots/view_post_screen.png)
+![Register Screen](screenshot/register_screen.png)
+![Login Screen](screenshot/login_screen.png)
+![Post List Screen](screenshot/postlist_screen.png)
+![Create Post Screen](screenshot/create_post_screen.png)
+![View Post Screen](screenshot/view_post_screen.png)
 
 ## Dependencies
 
