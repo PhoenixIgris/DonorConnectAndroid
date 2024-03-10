@@ -7,8 +7,10 @@ import com.buuzz.donorconnect.data.model.response.Category
 import com.buuzz.donorconnect.data.model.response.GetPostResponse
 import com.buuzz.donorconnect.data.model.response.GetPostsResponse
 import com.buuzz.donorconnect.data.model.response.InitContentData
+import com.buuzz.donorconnect.data.model.response.PostRequestResponse
 import com.buuzz.donorconnect.data.model.response.ResponseModel
 import com.buuzz.donorconnect.data.model.response.Tag
+import com.buuzz.donorconnect.data.model.response.UserRequestListResponse
 import com.buuzz.donorconnect.data.remote.MainApi
 import com.buuzz.donorconnect.utils.apihelper.safeapicall.Resource
 import com.buuzz.donorconnect.utils.apihelper.safeapicall.SafeApiCall
@@ -32,8 +34,14 @@ class ContentRepository @Inject constructor(
         category_id: Int?,
         tag_id: List<Int>?,
     ): Resource<ResponseModel> {
-        val data = PostCreateModel(image =  image,
-        title = title, desc =desc, category_id= category_id, tag_id= tag_id, user_id = dataStoreHelper.readStringFromDatastore(AppData.USER_ID))
+        val data = PostCreateModel(
+            image = image,
+            title = title,
+            desc = desc,
+            category_id = category_id,
+            tag_id = tag_id,
+            user_id = dataStoreHelper.readStringFromDatastore(AppData.USER_ID)
+        )
         val response = SafeApiCall.execute {
             mainApi.createPost(
                 data
@@ -51,6 +59,9 @@ class ContentRepository @Inject constructor(
         return response
     }
 
+    suspend fun getUserId(): String {
+        return dataStoreHelper.readStringFromDatastore(AppData.USER_ID)
+    }
 
     suspend fun getInitContents() {
         when (val response = SafeApiCall.execute { mainApi.getInitContents() }) {
@@ -74,7 +85,7 @@ class ContentRepository @Inject constructor(
             dataStoreHelper.readStringFromDatastore(AppData.INIT_CONTENTS),
             InitContentData::class.java
         )
-        return data.tags ?: emptyList()
+        return data?.tags ?: emptyList()
     }
 
     suspend fun getCategoryList(): List<Category> {
@@ -82,19 +93,53 @@ class ContentRepository @Inject constructor(
             dataStoreHelper.readStringFromDatastore(AppData.INIT_CONTENTS),
             InitContentData::class.java
         )
-        return data.categories ?: emptyList()
+        return data?.categories ?: emptyList()
     }
 
-    suspend fun getPostsByCategory(category_id: String?) : Resource<GetPostsResponse>{
+    suspend fun getPostsByCategory(category_id: String?): Resource<GetPostsResponse> {
         return SafeApiCall.execute { mainApi.getPostsByCategory(category_id) }
     }
 
-    suspend fun getAllPosts() : Resource<GetPostsResponse>{
-        return SafeApiCall.execute { mainApi.getAllPosts(dataStoreHelper.readStringFromDatastore(AppData.USER_ID)) }
+    suspend fun getAllPosts(): Resource<GetPostsResponse> {
+        return SafeApiCall.execute {
+            mainApi.getAllPosts(
+                dataStoreHelper.readStringFromDatastore(
+                    AppData.USER_ID
+                )
+            )
+        }
     }
 
-    suspend fun getPost(post_id: String?) : Resource<GetPostResponse>{
+    suspend fun getPost(post_id: String?): Resource<GetPostResponse> {
         return SafeApiCall.execute { mainApi.getPost(post_id) }
     }
+
+    suspend fun requestPost(post_id: String?): Resource<PostRequestResponse> {
+        return SafeApiCall.execute {
+            mainApi.requestPost(
+                post_id,
+                dataStoreHelper.readStringFromDatastore(AppData.USER_ID)
+            )
+        }
+    }
+
+    suspend fun cancelPost(post_id: String?): Resource<ResponseModel> {
+        return SafeApiCall.execute {
+            mainApi.cancelPost(
+                post_id,
+                dataStoreHelper.readStringFromDatastore(AppData.USER_ID)
+            )
+        }
+    }
+
+
+    suspend fun userRequests(): Resource<UserRequestListResponse> {
+        return SafeApiCall.execute {
+            mainApi.userRequests(
+                dataStoreHelper.readStringFromDatastore(AppData.USER_ID)
+            )
+        }
+    }
+
 
 }

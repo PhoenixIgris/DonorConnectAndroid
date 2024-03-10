@@ -40,9 +40,15 @@ open class BaseFragment : Fragment() {
     fun showTopSnackBar(view: View, message: String) {
         val snackBar = Snackbar.make(view, message, Snackbar.LENGTH_LONG)
         val snackBarView = snackBar.view
-        val params = snackBarView.layoutParams as FrameLayout.LayoutParams
-        params.gravity = Gravity.TOP
-        snackBarView.layoutParams = params
+        try {
+            val params = snackBarView.layoutParams as FrameLayout.LayoutParams
+            params.gravity = Gravity.TOP
+            snackBarView.layoutParams = params
+        } catch (e: Exception) {
+            val params =
+                snackBarView.layoutParams as androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams
+            snackBarView.layoutParams = params
+        }
         snackBar.animationMode = BaseTransientBottomBar.ANIMATION_MODE_FADE
         snackBar.show()
     }

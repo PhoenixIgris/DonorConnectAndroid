@@ -14,9 +14,11 @@ data class UserDetails(
     val id: Int? = null,
     val last_name: String? = null,
     val name: String? = null,
+    val desc : String? = null,
     val phone_number: String? = null,
     val updated_at: String? = null,
-    val address: String? = null
+    val address: String? = null,
+    val image : String? = null
 )
 
 data class Token(

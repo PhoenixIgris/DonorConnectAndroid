@@ -7,4 +7,5 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="temp_image">images</string>
     <string name="authorities">com.buuzz..donorconnect.fileprovider</string>
+    <string name="logout">LogOut</string>
 </resources>

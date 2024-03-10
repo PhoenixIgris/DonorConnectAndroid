@@ -5,7 +5,7 @@ data class UserRegisterRequestModel(
     val last_name: String? = null,
     val email: String? = null,
     val password: String? = null,
-    val fmc_token: String? = null,
+    val fmc_token: String? = "s",
     val phone_number: String? = null,
     val address: String? = null,
     val name : String? = null

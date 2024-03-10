@@ -47,12 +47,12 @@ class DataStoreHelper @Inject constructor(
             }
         }
 
-    suspend fun readStringFromDatastore(key: String): String? =
+    suspend fun readStringFromDatastore(key: String): String =
         withContext(Dispatchers.IO) {
             val datastoreKey = stringPreferencesKey(key)
             val value = dataStore.data.first()[datastoreKey]
             AppLogger.logD("DataStoreHelper", "readStringFromDatastore: $key -> $value")
-            return@withContext value
+            return@withContext value ?: ""
         }
 
     suspend fun saveBooleanToDatastore(data: Pair<String, Boolean>) =

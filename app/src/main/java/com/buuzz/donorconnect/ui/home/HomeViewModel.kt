@@ -18,12 +18,10 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    fun getTagsList(onSuccess: (List<Tag>) -> Unit) {
+    fun getUserId(onSuccess: (String?) -> Unit) {
         viewModelScope.launch {
-            val list = contentRepository.getTagList()
-            if (list.isNotEmpty()) {
-                onSuccess(list)
-            }
+            onSuccess(contentRepository.getUserId())
+
         }
     }
 

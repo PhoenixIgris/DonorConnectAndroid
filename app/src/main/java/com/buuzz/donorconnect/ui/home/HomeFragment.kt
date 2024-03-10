@@ -28,6 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeFragment : BaseFragment(), OnActionClicked {
     private lateinit var binding: FragmentHomeBinding
+    private var selectedCategory: String? = null
 
     companion object {
         fun newInstance() = HomeFragment()
@@ -36,8 +37,7 @@ class HomeFragment : BaseFragment(), OnActionClicked {
     private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(layoutInflater)
         setViews()
@@ -50,25 +50,23 @@ class HomeFragment : BaseFragment(), OnActionClicked {
     }
 
     private fun setOnClicks() {
-
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            getPosts()
+        }
     }
 
     private fun setCategoryTabs() {
         viewModel.getCategoryList { tags ->
             binding.categoryList.removeAllTabs()
-            binding.categoryList.addTab(
-                binding.categoryList.newTab().apply {
-                    text = "All"
-                    tag = "All"
-                }
-            )
+            binding.categoryList.addTab(binding.categoryList.newTab().apply {
+                text = "All"
+                tag = "All"
+            })
             tags.forEach { data ->
-                binding.categoryList.addTab(
-                    binding.categoryList.newTab().apply {
-                        text = data.name
-                        tag = data.id
-                    }
-                )
+                binding.categoryList.addTab(binding.categoryList.newTab().apply {
+                    text = data.name
+                    tag = data.id
+                })
             }
             val tabs = binding.categoryList.getChildAt(0) as ViewGroup
             AppLogger.logD("POST", "$tabs")
@@ -103,11 +101,12 @@ class HomeFragment : BaseFragment(), OnActionClicked {
     }
 
     private fun fetchPostByCategory(categoryId: String?) {
-        if (categoryId != "All") {
-            getPosts(categoryId)
+        selectedCategory = if (categoryId != "All") {
+            categoryId
         } else {
-            getPosts(null)
+            null
         }
+        getPosts()
     }
 
     private fun getPostById(postId: String?) {
@@ -128,20 +127,20 @@ class HomeFragment : BaseFragment(), OnActionClicked {
         })
     }
 
-    private fun getPosts(categoryId: String?) {
-        binding.loading.isVisible = true
-        viewModel.getPosts(categoryId, object : ApiCallListener {
+    private fun getPosts() {
+        binding.swipeRefreshLayout.isRefreshing = true
+        viewModel.getPosts(selectedCategory, object : ApiCallListener {
             override fun onSuccess(response: String?) {
                 val listType = object : TypeToken<List<Post>>() {}.type
                 val postList = Gson().fromJson<List<Post>>(response, listType)
                 if (!postList.isNullOrEmpty()) {
                     setPostList(postList)
                 }
-                binding.loading.isVisible = false
+                binding.swipeRefreshLayout.isRefreshing = false
             }
 
             override fun onError(errorMessage: String?) {
-                binding.loading.isVisible = false
+                binding.swipeRefreshLayout.isRefreshing = false
                 showTopSnackBar(binding.root, errorMessage ?: "Failed to Fetch Posts")
             }
 
@@ -151,8 +150,8 @@ class HomeFragment : BaseFragment(), OnActionClicked {
     private fun setPostList(postList: List<Post>) {
         binding.mainList.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            viewModel.getTagsList { tags ->
-                adapter = PostAdapter(postList, tags, this@HomeFragment)
+            viewModel.getUserId { userId ->
+                adapter = PostAdapter(postList, userId, this@HomeFragment)
             }
         }
 

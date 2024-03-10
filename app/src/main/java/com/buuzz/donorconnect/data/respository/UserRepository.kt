@@ -5,6 +5,7 @@ import com.buuzz.donorconnect.data.local.DataStoreHelper
 import com.buuzz.donorconnect.data.local.SharedPreferencesHelper
 import com.buuzz.donorconnect.data.model.request.UserRegisterRequestModel
 import com.buuzz.donorconnect.data.model.response.RegisterDataModel
+import com.buuzz.donorconnect.data.model.response.ResponseModel
 import com.buuzz.donorconnect.data.remote.MainApi
 import com.buuzz.donorconnect.ui.registerlogin.SignUpFormState
 import com.buuzz.donorconnect.ui.registerlogin.SignUpValidationEvent
@@ -149,6 +150,15 @@ class UserRepository @Inject constructor(
 
             }
         }
+    }
+
+    suspend fun logOut(): Resource<ResponseModel> {
+        return SafeApiCall.execute { mainApi.logout() }
+    }
+
+    suspend fun deleteAllData() {
+        dataStoreHelper.clear()
+
     }
 
 }

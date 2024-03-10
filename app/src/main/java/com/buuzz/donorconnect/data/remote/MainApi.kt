@@ -5,10 +5,12 @@ import com.buuzz.donorconnect.data.model.request.UserRegisterRequestModel
 import com.buuzz.donorconnect.data.model.response.GetPostResponse
 import com.buuzz.donorconnect.data.model.response.GetPostsResponse
 import com.buuzz.donorconnect.data.model.response.InitContentResponse
+import com.buuzz.donorconnect.data.model.response.PostRequestResponse
 import com.buuzz.donorconnect.data.model.response.ResponseModel
 import com.buuzz.donorconnect.data.model.response.UserDetailResponse
 import com.buuzz.donorconnect.data.model.response.UserLoginResponse
 import com.buuzz.donorconnect.data.model.response.UserRegisterResponse
+import com.buuzz.donorconnect.data.model.response.UserRequestListResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Field
@@ -23,6 +25,12 @@ interface MainApi {
     suspend fun register(
         @Body data: UserRegisterRequestModel
     ): Response<UserRegisterResponse>
+
+
+    @POST(ApiEndPoints.LOG_OUT)
+    suspend fun logout(
+    ): Response<ResponseModel>
+
 
     @FormUrlEncoded
     @POST(ApiEndPoints.LOGIN)
@@ -60,4 +68,25 @@ interface MainApi {
     suspend fun getPost(
         @Field("post_id") post: String?
     ): Response<GetPostResponse>
+
+    @FormUrlEncoded
+    @POST(ApiEndPoints.REQUEST_POST)
+    suspend fun requestPost(
+        @Field("post_id") postId: String?,
+        @Field("user_id") userId: String?
+    ): Response<PostRequestResponse>
+
+    @FormUrlEncoded
+    @POST(ApiEndPoints.CANCEL_POST)
+    suspend fun cancelPost(
+        @Field("post_id") postId: String?,
+        @Field("user_id") userId: String?
+    ): Response<ResponseModel>
+
+    @FormUrlEncoded
+    @POST(ApiEndPoints.USER_REQUESTS)
+    suspend fun userRequests(
+        @Field("user_id") userId: String?
+    ): Response<UserRequestListResponse>
+
 }
