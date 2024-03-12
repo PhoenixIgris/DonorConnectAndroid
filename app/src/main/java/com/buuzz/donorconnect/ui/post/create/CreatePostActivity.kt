@@ -2,13 +2,17 @@ package com.buuzz.donorconnect.ui.post.create
 
 import android.Manifest
 import android.R
+import android.content.pm.PackageManager
+import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.ListPopupWindow
+import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.lifecycleScope
 import com.buuzz.donorconnect.databinding.ActivityCreatePostBinding
 import com.buuzz.donorconnect.ui.base.BaseActivity
@@ -25,11 +29,14 @@ import com.buuzz.donorconnect.utils.helpers.isPhotoPickerAvailable
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 private const val TAG = "CreatePostActivity"
+
 @AndroidEntryPoint
 class CreatePostActivity : BaseActivity(),
     ImagePickerInterface {
@@ -41,6 +48,12 @@ class CreatePostActivity : BaseActivity(),
     private var selectedCategoryId: Int = 0
     private var pictureUri: Uri? = null
     private var imagePickerSheet: BottomSheetForImagePicker? = null
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private val LOCATION_PERMISSION_REQUEST_CODE = 123
+    private var latitude: Double = 0.0
+    private var longitude: Double = 0.0
+    private var address: String? = null
+
 
     private val cameraLauncher =
         registerForActivityResult(ActivityResultContracts.TakePicture()) { isSaved ->
@@ -73,8 +86,84 @@ class CreatePostActivity : BaseActivity(),
         super.onCreate(savedInstanceState)
         binding = ActivityCreatePostBinding.inflate(layoutInflater)
         setUpViews()
-
+        checkLocation()
         setContentView(binding.root)
+    }
+
+    private fun checkLocation() {
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        requestLocation()
+    }
+
+
+    private fun requestLocation() {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // Request permission
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                LOCATION_PERMISSION_REQUEST_CODE
+            )
+            return
+        }
+        fusedLocationClient.lastLocation
+            .addOnSuccessListener { location: Location? ->
+                location?.let {
+                    setLocation(it.latitude, it.longitude)
+                } ?: run {
+                    binding.location.text = "Failed to retrieve location"
+                }
+            }
+            .addOnFailureListener { e ->
+                // Handle failure
+                binding.location.text = "Error getting location: ${e.message}"
+            }
+    }
+
+    private fun setLocation(lat: Double, lng: Double) {
+        viewModel.getLocation(object : ApiCallListener {
+            override fun onSuccess(response: String?) {
+                latitude = lat
+                longitude = lng
+                address = response
+
+                binding.location.text =
+                    "Address: $response\nLatitude: $latitude \nLongitude: $longitude"
+            }
+
+            override fun onError(errorMessage: String?) {
+                binding.location.text = errorMessage
+            }
+
+        }, lat, lng)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            LOCATION_PERMISSION_REQUEST_CODE -> {
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    // Permission granted, request location
+                    requestLocation()
+                } else {
+                    // Permission denied, handle accordingly
+                    Toast.makeText(this, "Please give location Permission ", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                return
+            }
+        }
     }
 
     private fun setUpViews() {
@@ -111,14 +200,20 @@ class CreatePostActivity : BaseActivity(),
     }
 
     private fun submitPost() {
+        if (!address.isNullOrEmpty()){
         viewModel.createPost(
             title = binding.title.text.toString(),
             desc = binding.description.text.toString(),
             image = "data:image/png;base64,$postPicture",
             category_id = selectedCategoryId,
-            tag_id = tagAdapter?.getSelectedTags(), callback = object : ApiCallListener {
+            tag_id = tagAdapter?.getSelectedTags(),
+            address = address!!,
+            lat = latitude,
+            lng = longitude,
+            callback = object : ApiCallListener {
                 override fun onSuccess(response: String?) {
-                    AppLogger.logD(TAG, response)
+                    showTopSnackBar(binding.root, response ?: "Post Created Successfully")
+                    finish()
                 }
 
                 override fun onError(errorMessage: String?) {
@@ -127,7 +222,9 @@ class CreatePostActivity : BaseActivity(),
                 }
 
             }
-        )
+        )}else{
+            showTopSnackBar(binding.root, "Error Getting Address")
+        }
     }
 
     private fun setCategoriesAndTags() {

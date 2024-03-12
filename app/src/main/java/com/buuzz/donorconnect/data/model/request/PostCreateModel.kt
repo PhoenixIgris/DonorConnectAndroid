@@ -6,5 +6,8 @@ data class PostCreateModel(
     val desc: String,
     val category_id: Int?,
     val tag_id: List<Int>?,
-    val user_id: String?
+    val user_id: String?,
+    val address : String,
+    val latitude: Double,
+    val longitude : Double
 )

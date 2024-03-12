@@ -4,6 +4,7 @@ import com.buuzz.donorconnect.data.local.DataStoreHelper
 import com.buuzz.donorconnect.data.local.SharedPreferencesHelper
 import com.buuzz.donorconnect.data.model.request.PostCreateModel
 import com.buuzz.donorconnect.data.model.response.Category
+import com.buuzz.donorconnect.data.model.response.GeocodeResponse
 import com.buuzz.donorconnect.data.model.response.GetPostResponse
 import com.buuzz.donorconnect.data.model.response.GetPostsResponse
 import com.buuzz.donorconnect.data.model.response.InitContentData
@@ -33,6 +34,9 @@ class ContentRepository @Inject constructor(
         desc: String,
         category_id: Int?,
         tag_id: List<Int>?,
+        address: String,
+        latitude: Double,
+        longitude: Double
     ): Resource<ResponseModel> {
         val data = PostCreateModel(
             image = image,
@@ -40,7 +44,8 @@ class ContentRepository @Inject constructor(
             desc = desc,
             category_id = category_id,
             tag_id = tag_id,
-            user_id = dataStoreHelper.readStringFromDatastore(AppData.USER_ID)
+            user_id = dataStoreHelper.readStringFromDatastore(AppData.USER_ID),
+            address = address, latitude, longitude
         )
         val response = SafeApiCall.execute {
             mainApi.createPost(
@@ -111,7 +116,7 @@ class ContentRepository @Inject constructor(
     }
 
     suspend fun getPost(post_id: String?): Resource<GetPostResponse> {
-        return SafeApiCall.execute { mainApi.getPost(post_id) }
+        return SafeApiCall.execute { mainApi.getPost(                dataStoreHelper.readStringFromDatastore(AppData.USER_ID),post_id) }
     }
 
     suspend fun requestPost(post_id: String?): Resource<PostRequestResponse> {
@@ -140,6 +145,27 @@ class ContentRepository @Inject constructor(
             )
         }
     }
+
+    suspend fun getLocation(latitude: Double, longitude: Double): Resource<GeocodeResponse> {
+        return SafeApiCall.execute { mainApi.getLocation(latitude, longitude) }
+    }
+
+    suspend fun getBookmarkList(): Resource<GetPostsResponse> {
+        return SafeApiCall.execute {
+            mainApi.getBookmarks(
+                dataStoreHelper.readStringFromDatastore(AppData.USER_ID)
+            )
+        }
+    }
+
+    suspend fun bookmarkPost(post_id: String?): Resource<ResponseModel> {
+        return SafeApiCall.execute {
+            mainApi.bookmark(post_id ,
+                dataStoreHelper.readStringFromDatastore(AppData.USER_ID)
+            )
+        }
+    }
+
 
 
 }

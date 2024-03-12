@@ -6,15 +6,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.buuzz.donorconnect.R
+import com.buuzz.donorconnect.data.model.response.UserDetails
 import com.buuzz.donorconnect.databinding.FragmentProfileBinding
 import com.buuzz.donorconnect.ui.base.BaseFragment
 import com.buuzz.donorconnect.ui.profile.ProfileItemProvider.getProfileMoreItems
 import com.buuzz.donorconnect.utils.apihelper.safeapicall.ApiCallListener
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -33,18 +37,36 @@ class ProfileFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentProfileBinding.inflate(layoutInflater)
+        setView()
         setUpMoreView()
         return binding.root
     }
 
+    private fun setView() {
+        viewModel.getUserDetails {
+            val user = Gson().fromJson(it, UserDetails::class.java)
+            user?.let {
+                binding.apply {
+                    username.text = it.name
+                    userNumber.text = it.phone_number
+                    Glide.with(binding.root.context).load(it.image)
+                        .placeholder(R.drawable.person_placeholder)
+                        .into(binding.userImage)
+                }
+            }
+
+        }
+    }
+
     private fun setUpMoreView() {
-        binding.recyclerViewMore.layoutManager = LinearLayoutManager(context)
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
         val moreAdapter =
             ProfileAdapter(
                 getProfileMoreItems(requireContext()),
                 activity ?: Activity(),
                 onItemsClicked = { onItemsClicked(it) })
-        binding.recyclerViewMore.adapter = moreAdapter
+        binding.recyclerView.adapter = moreAdapter
+        binding.moreLyt.isVisible = false
     }
 
     private fun onItemsClicked(title: String) {
@@ -68,6 +90,7 @@ class ProfileFragment : BaseFragment() {
 
             override fun onError(errorMessage: String?) {
                 showTopSnackBar(binding.root, errorMessage ?: "Error Logging Out !!")
+                requireActivity().finish()
             }
 
         })

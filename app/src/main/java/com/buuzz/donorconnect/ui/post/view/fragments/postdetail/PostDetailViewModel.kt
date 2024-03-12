@@ -44,4 +44,21 @@ class PostDetailViewModel @Inject constructor(
             }
         }
     }
+
+    fun bookmarkUnBookmarkPost(callback: ApiCallListener, postId: String) {
+        viewModelScope.launch {
+            when (val response = contentRepository.bookmarkPost(
+                    postId
+                )) {
+                is Resource.Failure -> {
+                    callback.onError(response.errorMsg)
+                }
+
+                is Resource.Success -> {
+                    callback.onSuccess(Gson().toJson(response.value))
+                }
+            }
+        }
+    }
+
 }

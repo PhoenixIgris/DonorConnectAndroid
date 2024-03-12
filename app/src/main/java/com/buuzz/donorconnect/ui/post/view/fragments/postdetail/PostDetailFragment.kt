@@ -18,6 +18,7 @@ import com.buuzz.donorconnect.utils.apihelper.safeapicall.ApiCallListener
 import com.buuzz.donorconnect.utils.helpers.AppLogger
 import com.buuzz.donorconnect.utils.helpers.IntentParams
 import com.buuzz.donorconnect.utils.helpers.formatDate
+import com.google.android.gms.common.api.Api
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -58,6 +59,30 @@ class PostDetailFragment : BaseFragment() {
         binding.cancelButton.setOnClickListener {
             cancelPost()
         }
+
+        binding.bookmarkBtn.setOnClickListener {
+            bookmarkUnBookmarkPost()
+        }
+
+    }
+
+    private fun bookmarkUnBookmarkPost() {
+        postDetail?.let {
+            viewModel.bookmarkUnBookmarkPost(
+                object : ApiCallListener {
+                    override fun onSuccess(response: String?) {
+                        showTopSnackBar(binding.root, response ?: "Done!")
+                    }
+
+                    override fun onError(errorMessage: String?) {
+                        showTopSnackBar(binding.root, errorMessage ?: "Error!!")
+
+                    }
+                },
+                it.id.toString(),
+            )
+        }
+
 
     }
 

@@ -10,7 +10,7 @@ android {
             buildConfigField("String", "APP_TYPE", '"donor_connect"')
             buildConfigField("String", "APP_NAME", '"DonorConnect Debug"')
             resValue "string", "APP_NAME", "Donor Connect Debug"
-            buildConfigField("String", "API_URL", '"http://192.168.1.4:8000/"')
+            buildConfigField("String", "API_URL", '"http://192.168.1.2:8000/"')
             manifestPlaceholders = [
                     appIcon     : "@mipmap/ic_launcher_round",
                     appIconRound: "@mipmap/ic_launcher_round"

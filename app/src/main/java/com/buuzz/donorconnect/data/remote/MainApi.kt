@@ -2,6 +2,7 @@ package com.buuzz.donorconnect.data.remote
 
 import com.buuzz.donorconnect.data.model.request.PostCreateModel
 import com.buuzz.donorconnect.data.model.request.UserRegisterRequestModel
+import com.buuzz.donorconnect.data.model.response.GeocodeResponse
 import com.buuzz.donorconnect.data.model.response.GetPostResponse
 import com.buuzz.donorconnect.data.model.response.GetPostsResponse
 import com.buuzz.donorconnect.data.model.response.InitContentResponse
@@ -17,6 +18,7 @@ import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface MainApi {
 
@@ -66,6 +68,7 @@ interface MainApi {
     @FormUrlEncoded
     @POST(ApiEndPoints.GET_POST)
     suspend fun getPost(
+        @Field("user_id") userId: String?,
         @Field("post_id") post: String?
     ): Response<GetPostResponse>
 
@@ -88,5 +91,26 @@ interface MainApi {
     suspend fun userRequests(
         @Field("user_id") userId: String?
     ): Response<UserRequestListResponse>
+
+    @FormUrlEncoded
+    @POST(ApiEndPoints.GET_LOCATION)
+    suspend fun getLocation(
+        @Field("lat") latitude: Double,
+        @Field("lon") longitude: Double,
+    ): Response<GeocodeResponse>
+
+    @FormUrlEncoded
+    @POST(ApiEndPoints.BOOKMARK)
+    suspend fun bookmark(
+        @Field("post_id") postId: String?,
+        @Field("user_id") userId: String?
+    ): Response<ResponseModel>
+
+
+    @FormUrlEncoded
+    @POST(ApiEndPoints.GET_BOOKMARK_LIST)
+    suspend fun getBookmarks(
+        @Field("user_id") userId: String?
+    ): Response<GetPostsResponse>
 
 }

@@ -136,6 +136,9 @@ class UserRepository @Inject constructor(
             }
         }
     }
+    suspend fun getUserDetails(): String {
+        return dataStoreHelper.readStringFromDatastore(AppData.USER_DETAILS)
+    }
 
     suspend fun fetchUserDetails() {
         when (val response = SafeApiCall.execute { mainApi.fetchUserDetails() }) {

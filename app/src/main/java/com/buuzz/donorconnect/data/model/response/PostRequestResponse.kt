@@ -10,6 +10,14 @@ data class PostRequestResponse(
 data class DeliveryDetails(
     val message: String? = null,
     val queue_code: String? = null,
-    val address : String? = null,
+    val address : Address? = null,
     val contact_number : String? = null
+)
+
+
+data class Address(
+    val id: Int? = null,
+    val latitude: Double? = null,
+    val longitude: Double? = null,
+    val name: String? = null,
 )

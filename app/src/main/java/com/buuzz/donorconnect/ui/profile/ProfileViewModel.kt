@@ -19,6 +19,7 @@ class ProfileViewModel @Inject constructor(
             when (val response = userRepository.logOut()) {
                 is Resource.Failure -> {
                     callback.onError(response.errorMsg)
+                    userRepository.deleteAllData()
                 }
 
                 is Resource.Success -> {
@@ -26,6 +27,13 @@ class ProfileViewModel @Inject constructor(
                     callback.onSuccess(response.value.message)
                 }
             }
+        }
+    }
+
+
+    fun getUserDetails(onSuccess :(String) ->Unit){
+        viewModelScope.launch {
+            onSuccess(userRepository.getUserDetails())
         }
     }
 }

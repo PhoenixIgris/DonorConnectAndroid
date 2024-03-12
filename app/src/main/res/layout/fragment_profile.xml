@@ -61,7 +61,7 @@
                                 android:orientation="vertical">
 
                                 <TextView
-                                    android:id="@+id/UserName"
+                                    android:id="@+id/username"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/inter_semi_bold"
@@ -71,11 +71,11 @@
                                     tools:text="Unknown User" />
 
                                 <TextView
-                                    android:id="@+id/UserNumber"
+                                    android:id="@+id/user_number"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/inter_medium"
-                                    android:text="9800000000"
+                                    tools:text="9800000000"
                                     android:textColor="@android:color/black"
                                     android:textSize="@dimen/_16sp" />
 
@@ -98,7 +98,7 @@
                                     app:cardElevation="0dp">
 
                                     <ImageView
-                                        android:id="@+id/UserImage"
+                                        android:id="@+id/user_image"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:src="@drawable/person_placeholder" />
@@ -162,6 +162,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/more_lyt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_16dp"

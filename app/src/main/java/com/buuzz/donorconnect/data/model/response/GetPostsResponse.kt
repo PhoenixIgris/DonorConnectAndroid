@@ -23,7 +23,7 @@ data class Post(
     val pending_request_status: String? = null,
     val current_request_user_id: Int? = null,
     val queue_code: String? = null,
-    val request_queues: List<RequestQueue>? = emptyList()
+    val request_queues: List<RequestQueue>? = emptyList(),
 )
 
 data class RequestQueue(

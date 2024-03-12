@@ -19,6 +19,10 @@ object ApiEndPoints {
     const val REQUEST_POST = "api/post/requestPost"
     const val CANCEL_POST = "api/post/cancelRequest"
     const val USER_REQUESTS = "api/post/userRequests"
+    const val GET_LOCATION = "api/map/getLocation"
+    const val BOOKMARK = "api/post/bookmarkPost"
+    const val UN_BOOKMARK = "api/post/unBookmarkPost"
+    const val GET_BOOKMARK_LIST = "api/post/getBookmarkedPosts"
 
 
 }

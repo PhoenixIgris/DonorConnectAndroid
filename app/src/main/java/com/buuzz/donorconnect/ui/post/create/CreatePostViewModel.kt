@@ -42,6 +42,9 @@ class CreatePostViewModel @Inject constructor(
         desc: String,
         category_id: Int?,
         tag_id: List<Int>?,
+        address : String,
+        lat : Double,
+        lng : Double,
         callback: ApiCallListener
     ) {
         viewModelScope.launch {
@@ -51,7 +54,7 @@ class CreatePostViewModel @Inject constructor(
                     title,
                     desc,
                     category_id,
-                    tag_id
+                    tag_id, address, lat, lng
                 )
             ) {
                 is Resource.Failure -> {
@@ -61,6 +64,16 @@ class CreatePostViewModel @Inject constructor(
                 is Resource.Success -> {
                     callback.onSuccess(response.value.message)
                 }
+            }
+        }
+
+    }
+
+    fun getLocation(apiCallListener: ApiCallListener, latitude: Double, longitude: Double) {
+        viewModelScope.launch {
+            when (val response = contentRepository.getLocation(latitude, longitude)) {
+                is Resource.Failure -> apiCallListener.onError(response.errorMsg)
+                is Resource.Success -> apiCallListener.onSuccess(response.value.display_name ?: "")
             }
         }
 

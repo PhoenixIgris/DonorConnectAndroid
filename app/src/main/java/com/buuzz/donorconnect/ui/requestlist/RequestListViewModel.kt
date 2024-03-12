@@ -42,4 +42,23 @@ class RequestListViewModel @Inject constructor(
             }
         }
     }
+
+    fun getPostById(postId: String?, apiCallListener: ApiCallListener) {
+        viewModelScope.launch {
+            when (val response =
+                contentRepository.getPost(postId)) {
+                is Resource.Failure -> {
+                    apiCallListener.onError(response.errorMsg)
+                }
+
+                is Resource.Success -> {
+                    if (response.value.success == true) {
+                        apiCallListener.onSuccess(Gson().toJson(response.value.data?.post_detail))
+                    } else {
+                        apiCallListener.onError(response.value.message)
+                    }
+                }
+            }
+        }
+    }
 }

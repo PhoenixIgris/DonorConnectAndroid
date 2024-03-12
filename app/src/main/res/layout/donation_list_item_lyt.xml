@@ -78,7 +78,7 @@
                 android:gravity="top"
                 android:maxLines="2"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_18sp"
+                android:textSize="@dimen/_20sp"
                 tools:text="Cloth" />
 
             <TextView
@@ -89,8 +89,8 @@
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:fontFamily="@font/inter_regular"
-                android:gravity="top"
-                android:maxLines="3"
+                android:gravity="center_vertical"
+                android:maxLines="2"
                 android:textColor="@color/gray_500"
                 android:textSize="@dimen/_12sp"
                 tools:text="Cloths are very good." />

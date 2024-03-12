@@ -16,6 +16,7 @@ import com.buuzz.donorconnect.ui.base.BaseFragment
 import com.buuzz.donorconnect.ui.home.adapter.PostAdapter
 import com.buuzz.donorconnect.ui.post.ActionType
 import com.buuzz.donorconnect.ui.post.view.PostActivity
+import com.buuzz.donorconnect.ui.postmap.PostMapActivity
 import com.buuzz.donorconnect.utils.apihelper.safeapicall.ApiCallListener
 import com.buuzz.donorconnect.utils.helpers.AppLogger
 import com.buuzz.donorconnect.utils.helpers.IntentParams
@@ -52,6 +53,9 @@ class HomeFragment : BaseFragment(), OnActionClicked {
     private fun setOnClicks() {
         binding.swipeRefreshLayout.setOnRefreshListener {
             getPosts()
+        }
+        binding.notificationBtn.setOnClickListener {
+            startActivity(Intent(requireContext(), PostMapActivity::class.java))
         }
     }
 

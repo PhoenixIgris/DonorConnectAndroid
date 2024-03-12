@@ -168,7 +168,30 @@
                     tools:listitem="@layout/item_tag" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_16dp"
+                android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_semi_bold"
+                    android:text="Your Location"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_16sp" />
+                <TextView
+                    android:id="@+id/location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:gravity="top"
+                    android:padding="@dimen/_12dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_14sp" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
