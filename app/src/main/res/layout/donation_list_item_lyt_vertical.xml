@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/_200dp"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:layout_marginTop="@dimen/_10dp"
+    android:layout_marginStart="@dimen/_10dp"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_100dp"
+            android:background="@drawable/rounded_activated_bg"
+            android:backgroundTint="@color/light_transparent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/donation_placeholder"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearance="@style/curved" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:cardBackgroundColor="@color/card_background_gray"
+            app:cardCornerRadius="@dimen/_4dp"
+            app:cardElevation="0dp"
+
+            app:layout_constraintEnd_toEndOf="@id/image"
+            app:layout_constraintTop_toTopOf="@id/image"
+            tools:visibility="visible">
+
+            <TextView
+                android:id="@+id/status_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_5dp"
+                android:paddingVertical="@dimen/_1dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sp"
+                tools:text="Received" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <LinearLayout
+            android:paddingVertical="@dimen/_10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBaseline_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image">
+
+            <TextView
+                android:id="@+id/tag_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/_12sp"
+                tools:text="Cloth | Electronics" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/inter_semi_bold"
+                android:gravity="top"
+                android:maxLines="2"
+                android:minLines="2"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_16sp"
+                tools:text="Cloth" />
+
+            <LinearLayout
+                android:id="@+id/userLyt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10dp"
+                android:layout_marginTop="@dimen/_5dp"
+                android:gravity="start"
+                android:orientation="horizontal">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/user_image"
+                    android:layout_width="@dimen/_24dp"
+                    android:layout_height="@dimen/_24dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/person_placeholder" />
+
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_10dp"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="Sophia Durst"
+                    android:textColor="@color/text_gray"
+                    android:textSize="@dimen/_12sp" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>>
+
+</LinearLayout>

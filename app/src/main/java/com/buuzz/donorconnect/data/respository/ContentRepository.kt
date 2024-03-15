@@ -105,6 +105,10 @@ class ContentRepository @Inject constructor(
         return SafeApiCall.execute { mainApi.getPostsByCategory(category_id) }
     }
 
+    suspend fun getPostsByTag(tag_id: String): Resource<GetPostsResponse> {
+        return SafeApiCall.execute { mainApi.getPostsByTag("[$tag_id]" ) }
+    }
+
     suspend fun getAllPosts(): Resource<GetPostsResponse> {
         return SafeApiCall.execute {
             mainApi.getAllPosts(
@@ -162,6 +166,12 @@ class ContentRepository @Inject constructor(
         return SafeApiCall.execute {
             mainApi.bookmark(post_id ,
                 dataStoreHelper.readStringFromDatastore(AppData.USER_ID)
+            )
+        }
+    }
+    suspend fun getRecommendationList(post_id: String?): Resource<GetPostsResponse> {
+        return SafeApiCall.execute {
+            mainApi.getRecommendationList(post_id
             )
         }
     }

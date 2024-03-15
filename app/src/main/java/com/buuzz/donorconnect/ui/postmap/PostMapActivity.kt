@@ -13,7 +13,7 @@ class PostMapActivity : AppCompatActivity() {
 
         binding.map.settings.javaScriptEnabled = true
 
-        binding.map.loadUrl("http://192.168.1.4:8000/api/map")
+        binding.map.loadUrl("http://192.168.1.4:8000/api/map/showMap")
         setContentView(binding.root)
     }
 }

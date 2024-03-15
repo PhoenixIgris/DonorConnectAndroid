@@ -2,10 +2,13 @@ package com.buuzz.donorconnect.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.LinearLayout
+import android.widget.ListView
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -52,11 +55,15 @@ class HomeFragment : BaseFragment(), OnActionClicked {
 
     private fun setOnClicks() {
         binding.swipeRefreshLayout.setOnRefreshListener {
-            getPosts()
+            getPostsByCategory()
         }
         binding.notificationBtn.setOnClickListener {
             startActivity(Intent(requireContext(), PostMapActivity::class.java))
         }
+
+//        binding.filterSearch.setOnClickListener {
+//            showFilterOptions()
+//        }
     }
 
     private fun setCategoryTabs() {
@@ -104,13 +111,13 @@ class HomeFragment : BaseFragment(), OnActionClicked {
         })
     }
 
-    private fun fetchPostByCategory(categoryId: String?) {
+    private fun fetchPostByTag(categoryId: String?) {
         selectedCategory = if (categoryId != "All") {
             categoryId
         } else {
             null
         }
-        getPosts()
+        getPostsByTag()
     }
 
     private fun getPostById(postId: String?) {
@@ -131,9 +138,9 @@ class HomeFragment : BaseFragment(), OnActionClicked {
         })
     }
 
-    private fun getPosts() {
+    private fun getPostsByCategory() {
         binding.swipeRefreshLayout.isRefreshing = true
-        viewModel.getPosts(selectedCategory, object : ApiCallListener {
+        viewModel.getPostsByCategory(selectedCategory, object : ApiCallListener {
             override fun onSuccess(response: String?) {
                 val listType = object : TypeToken<List<Post>>() {}.type
                 val postList = Gson().fromJson<List<Post>>(response, listType)
@@ -151,6 +158,47 @@ class HomeFragment : BaseFragment(), OnActionClicked {
         })
     }
 
+    private fun getPostsByTag() {
+        binding.swipeRefreshLayout.isRefreshing = true
+        viewModel.getPostsByTag(selectedCategory, object : ApiCallListener {
+            override fun onSuccess(response: String?) {
+                val listType = object : TypeToken<List<Post>>() {}.type
+                val postList = Gson().fromJson<List<Post>>(response, listType)
+                if (!postList.isNullOrEmpty()) {
+                    setPostList(postList)
+                }
+                binding.swipeRefreshLayout.isRefreshing = false
+            }
+
+            override fun onError(errorMessage: String?) {
+                binding.swipeRefreshLayout.isRefreshing = false
+                showTopSnackBar(binding.root, errorMessage ?: "Failed to Fetch Posts")
+            }
+
+        })
+    }
+
+    private fun showFilterOptions() {
+        viewModel.getTagList {list ->
+            val options= list.map { tag ->
+                tag.name
+            }
+            Log.e("FilterOptions", "showFilterOptions: $options", )
+            val adapter =
+                ArrayAdapter(
+                    requireContext(),
+                    android.R.layout.simple_list_item_single_choice,
+                    options
+                )
+            binding.filterListView.adapter = adapter
+            binding.filterListView.choiceMode = ListView.CHOICE_MODE_SINGLE
+            binding.filterListView.setOnItemClickListener { _, _, position, _ ->
+                val selectedItem = options[position]
+                fetchPostByCategory(list.first { it.name == selectedItem }.id.toString())
+            }
+        }
+    }
+
     private fun setPostList(postList: List<Post>) {
         binding.mainList.apply {
             layoutManager = LinearLayoutManager(requireContext())
@@ -159,6 +207,15 @@ class HomeFragment : BaseFragment(), OnActionClicked {
             }
         }
 
+    }
+
+    private fun fetchPostByCategory(categoryId: String?) {
+        selectedCategory = if (categoryId != "All") {
+            categoryId
+        } else {
+            null
+        }
+        getPostsByCategory()
     }
 
     override fun onClick(type: String, value: String?) {

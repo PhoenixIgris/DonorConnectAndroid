@@ -64,6 +64,12 @@ interface MainApi {
         @Field("category_id") categoryId: String?
     ): Response<GetPostsResponse>
 
+    @FormUrlEncoded
+    @POST(ApiEndPoints.GET_POST_BY_TAG)
+    suspend fun getPostsByTag(
+        @Field("requiredtagids") requiredTagIds: String?
+    ): Response<GetPostsResponse>
+
 
     @FormUrlEncoded
     @POST(ApiEndPoints.GET_POST)
@@ -112,5 +118,12 @@ interface MainApi {
     suspend fun getBookmarks(
         @Field("user_id") userId: String?
     ): Response<GetPostsResponse>
+
+    @FormUrlEncoded
+    @POST(ApiEndPoints.GET_RECOMMENDATION_LIST)
+    suspend fun getRecommendationList(
+        @Field("post_id") postId: String?
+    ): Response<GetPostsResponse>
+
 
 }

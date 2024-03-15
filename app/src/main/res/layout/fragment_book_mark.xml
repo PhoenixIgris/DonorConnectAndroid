@@ -40,5 +40,10 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/donation_list_item_lyt" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
+    <include
+        android:id="@+id/error_lyt"
+        layout="@layout/error_lyt"
+        android:layout_below="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </RelativeLayout>

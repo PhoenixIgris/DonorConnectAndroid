@@ -51,10 +51,19 @@ class BookMarkFragment : BaseFragment(), OnActionClicked {
                 val data = Gson().fromJson(response, GetPostsResponse::class.java)
                 data.posts?.let { setPostList(it) }
                 binding.swipeRefreshLayout.isRefreshing = false
+                binding.errorLyt.root.isVisible = false
             }
 
             override fun onError(errorMessage: String?) {
                 binding.swipeRefreshLayout.isRefreshing = false
+                binding.errorLyt.apply {
+                    root.isVisible = true
+                    message.text = errorMessage
+                    actionBtn.text = "Reload"
+                    actionBtn.setOnClickListener {
+                        onClick(ActionType.RELOAD.name)
+                    }
+                }
                 showTopSnackBar(binding.root, errorMessage ?: "Error fetching your bookmark lists")
             }
 
@@ -76,6 +85,9 @@ class BookMarkFragment : BaseFragment(), OnActionClicked {
         when (type) {
             ActionType.VIEW_POST.name -> {
                 getPostById(postId = value)
+            }
+            ActionType.RELOAD.name ->{
+                fetchList()
             }
         }
     }

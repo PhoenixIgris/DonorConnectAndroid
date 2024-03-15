@@ -15,14 +15,15 @@ object ApiEndPoints {
     const val CREATE_POST = "api/post/createPost"
     const val GET_ALL_POST = "api/post/getAllPosts"
     const val GET_POST_BY_CATEGORY = "api/post/getPostsByCategoryId"
+    const val GET_POST_BY_TAG = "api/post/getPostsByTags"
     const val GET_POST = "api/post/getPost"
     const val REQUEST_POST = "api/post/requestPost"
     const val CANCEL_POST = "api/post/cancelRequest"
     const val USER_REQUESTS = "api/post/userRequests"
     const val GET_LOCATION = "api/map/getLocation"
     const val BOOKMARK = "api/post/bookmarkPost"
-    const val UN_BOOKMARK = "api/post/unBookmarkPost"
     const val GET_BOOKMARK_LIST = "api/post/getBookmarkedPosts"
+    const val GET_RECOMMENDATION_LIST = "api/post/getRecommendedPosts"
 
 
 }

@@ -25,6 +25,14 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun getTagList(onSuccess: (List<Tag>) -> Unit) {
+        viewModelScope.launch {
+            val list = contentRepository.getTagList()
+            if (list.isNotEmpty()) {
+                onSuccess(list)
+            }
+        }
+    }
     fun getCategoryList(onSuccess: (List<Category>) -> Unit) {
         viewModelScope.launch {
             val list = contentRepository.getCategoryList()
@@ -33,8 +41,7 @@ class HomeViewModel @Inject constructor(
             }
         }
     }
-
-    fun getPosts(categoryId: String?, apiCallListener: ApiCallListener) {
+    fun getPostsByCategory(categoryId: String?, apiCallListener: ApiCallListener) {
         viewModelScope.launch {
             when (val response =
                 if (categoryId == null) contentRepository.getAllPosts() else contentRepository.getPostsByCategory(
@@ -55,6 +62,26 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun getPostsByTag(tagId: String?, apiCallListener: ApiCallListener) {
+        viewModelScope.launch {
+            when (val response =
+                if (tagId == null) contentRepository.getAllPosts() else contentRepository.getPostsByTag(
+                    tagId
+                )) {
+                is Resource.Failure -> {
+                    apiCallListener.onError(response.errorMsg)
+                }
+
+                is Resource.Success -> {
+                    if (response.value.success == true) {
+                        apiCallListener.onSuccess(Gson().toJson(response.value.posts))
+                    } else {
+                        apiCallListener.onError(response.value.message)
+                    }
+                }
+            }
+        }
+    }
     fun getPostById(postId: String?, apiCallListener: ApiCallListener) {
         viewModelScope.launch {
             when (val response =

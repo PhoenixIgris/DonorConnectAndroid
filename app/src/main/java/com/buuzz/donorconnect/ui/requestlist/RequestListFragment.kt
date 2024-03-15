@@ -50,10 +50,19 @@ class RequestListFragment : BaseFragment(), OnActionClicked {
                 val data = Gson().fromJson(response, UserRequestListResponse::class.java)
                 data.user_requests?.map { it?.post }?.let { setPostList(it) }
                 binding.swipeRefreshLayout.isRefreshing = false
+                binding.errorLyt.root.isVisible = false
             }
 
             override fun onError(errorMessage: String?) {
                 binding.swipeRefreshLayout.isRefreshing = false
+                binding.errorLyt.apply {
+                    root.isVisible = true
+                    message.text = errorMessage
+                    actionBtn.text = "Reload"
+                    actionBtn.setOnClickListener {
+                        onClick(ActionType.RELOAD.name)
+                    }
+                }
                 showTopSnackBar(binding.root, errorMessage ?: "Error fetching your request lists")
             }
 
@@ -76,8 +85,12 @@ class RequestListFragment : BaseFragment(), OnActionClicked {
             ActionType.VIEW_POST.name -> {
                 getPostById(postId = value)
             }
+            ActionType.RELOAD.name ->{
+                fetchList()
+            }
         }
     }
+
     private fun getPostById(postId: String?) {
         binding.loading.isVisible = true
         viewModel.getPostById(postId, object : ApiCallListener {

@@ -61,4 +61,48 @@ class PostDetailViewModel @Inject constructor(
         }
     }
 
+    fun getRecommendationList(callback: ApiCallListener, postId: String) {
+        viewModelScope.launch {
+            when (val response = contentRepository.getRecommendationList(
+                postId
+            )) {
+                is Resource.Failure -> {
+                    callback.onError(response.errorMsg)
+                }
+
+                is Resource.Success -> {
+                    callback.onSuccess(Gson().toJson(response.value))
+                }
+            }
+        }
+    }
+
+    fun getUserId(onSuccess: (String?) -> Unit) {
+        viewModelScope.launch {
+            onSuccess(contentRepository.getUserId())
+
+        }
+    }
+
+
+    fun getPostById(postId: String?, apiCallListener: ApiCallListener) {
+        viewModelScope.launch {
+            when (val response =
+                contentRepository.getPost(postId)) {
+                is Resource.Failure -> {
+                    apiCallListener.onError(response.errorMsg)
+                }
+
+                is Resource.Success -> {
+                    if (response.value.success == true) {
+                        apiCallListener.onSuccess(Gson().toJson(response.value.data?.post_detail))
+                    } else {
+                        apiCallListener.onError(response.value.message)
+                    }
+                }
+            }
+        }
+    }
+
+
 }
