@@ -18,17 +18,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            app:contentScrim="@color/white"
             android:fitsSystemWindows="true"
+            app:contentScrim="@color/white"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <RelativeLayout
                 android:id="@+id/tool_bar"
-                app:layout_collapseMode="pin"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:layout_alignParentTop="true"
-                android:background="@color/white">
+                android:background="@color/white"
+                app:layout_collapseMode="pin">
 
                 <ImageView
                     android:id="@+id/other_btn"
@@ -50,13 +50,14 @@
                     android:padding="@dimen/_10dp"
                     android:src="@drawable/ic_map" />
             </RelativeLayout>
+
             <LinearLayout
                 android:id="@+id/header_lyt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_collapseMode="parallax"
                 android:layout_marginTop="?attr/actionBarSize"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                app:layout_collapseMode="parallax">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -113,10 +114,7 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
-                <ListView
-                    android:id="@+id/filterListView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+
 
             </LinearLayout>
 
@@ -129,18 +127,17 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/_16dp"
+            android:background="@null"
             app:tabBackground="@drawable/menu_tab_selector"
             app:tabGravity="center"
             app:tabIndicatorHeight="0dp"
             app:tabMinWidth="@dimen/_50dp"
-            android:background="@null"
             app:tabMode="scrollable"
             app:tabRippleColor="@android:color/transparent"
             app:tabSelectedTextColor="@color/white"
             app:tabTextAppearance="@style/TabTextAppearance"
             app:tabTextColor="@color/black" />
     </com.google.android.material.appbar.AppBarLayout>
-
 
 
     <RelativeLayout

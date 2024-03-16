@@ -14,16 +14,22 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.buuzz.donorconnect.R
 import com.buuzz.donorconnect.data.model.response.Post
+import com.buuzz.donorconnect.data.model.response.Tag
 import com.buuzz.donorconnect.databinding.FragmentHomeBinding
 import com.buuzz.donorconnect.ui.base.BaseFragment
 import com.buuzz.donorconnect.ui.home.adapter.PostAdapter
+import com.buuzz.donorconnect.ui.home.filter.FilterFragment
 import com.buuzz.donorconnect.ui.post.ActionType
+import com.buuzz.donorconnect.ui.post.adapter.TagAdapter
 import com.buuzz.donorconnect.ui.post.view.PostActivity
 import com.buuzz.donorconnect.ui.postmap.PostMapActivity
 import com.buuzz.donorconnect.utils.apihelper.safeapicall.ApiCallListener
 import com.buuzz.donorconnect.utils.helpers.AppLogger
 import com.buuzz.donorconnect.utils.helpers.IntentParams
 import com.buuzz.donorconnect.utils.helpers.OnActionClicked
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 import com.google.android.material.tabs.TabLayout
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -33,6 +39,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : BaseFragment(), OnActionClicked {
     private lateinit var binding: FragmentHomeBinding
     private var selectedCategory: String? = null
+
 
     companion object {
         fun newInstance() = HomeFragment()
@@ -61,9 +68,9 @@ class HomeFragment : BaseFragment(), OnActionClicked {
             startActivity(Intent(requireContext(), PostMapActivity::class.java))
         }
 
-//        binding.filterSearch.setOnClickListener {
-//            showFilterOptions()
-//        }
+        binding.filterSearch.setOnClickListener {
+            showFilterOptions()
+        }
     }
 
     private fun setCategoryTabs() {
@@ -111,15 +118,6 @@ class HomeFragment : BaseFragment(), OnActionClicked {
         })
     }
 
-    private fun fetchPostByTag(categoryId: String?) {
-        selectedCategory = if (categoryId != "All") {
-            categoryId
-        } else {
-            null
-        }
-        getPostsByTag()
-    }
-
     private fun getPostById(postId: String?) {
         binding.loading.isVisible = true
         viewModel.getPostById(postId, object : ApiCallListener {
@@ -158,9 +156,9 @@ class HomeFragment : BaseFragment(), OnActionClicked {
         })
     }
 
-    private fun getPostsByTag() {
+    private fun getPostsByTag(tagList: String) {
         binding.swipeRefreshLayout.isRefreshing = true
-        viewModel.getPostsByTag(selectedCategory, object : ApiCallListener {
+        viewModel.getPostsByTag(tagList, object : ApiCallListener {
             override fun onSuccess(response: String?) {
                 val listType = object : TypeToken<List<Post>>() {}.type
                 val postList = Gson().fromJson<List<Post>>(response, listType)
@@ -179,23 +177,10 @@ class HomeFragment : BaseFragment(), OnActionClicked {
     }
 
     private fun showFilterOptions() {
-        viewModel.getTagList {list ->
-            val options= list.map { tag ->
-                tag.name
-            }
-            Log.e("FilterOptions", "showFilterOptions: $options", )
-            val adapter =
-                ArrayAdapter(
-                    requireContext(),
-                    android.R.layout.simple_list_item_single_choice,
-                    options
-                )
-            binding.filterListView.adapter = adapter
-            binding.filterListView.choiceMode = ListView.CHOICE_MODE_SINGLE
-            binding.filterListView.setOnItemClickListener { _, _, position, _ ->
-                val selectedItem = options[position]
-                fetchPostByCategory(list.first { it.name == selectedItem }.id.toString())
-            }
+        viewModel.getTagList { list ->
+            val dialogFragment = FilterFragment.newInstance(list)
+            dialogFragment.setCallback(this)
+            dialogFragment.show(childFragmentManager, "FilterDialog")
         }
     }
 
@@ -222,6 +207,13 @@ class HomeFragment : BaseFragment(), OnActionClicked {
         when (type) {
             ActionType.VIEW_POST.name -> {
                 getPostById(postId = value)
+            }
+
+            ActionType.APPLY_FILTER.name -> {
+                val listType = object : TypeToken<List<Int>>() {}.type
+                val list: List<Int> = Gson().fromJson(value, listType)
+                val tagList = list.joinToString(separator = ", ")
+                getPostsByTag(tagList)
             }
         }
     }
