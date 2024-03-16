@@ -104,6 +104,9 @@ class ContentRepository @Inject constructor(
     suspend fun getPostsByCategory(category_id: String?): Resource<GetPostsResponse> {
         return SafeApiCall.execute { mainApi.getPostsByCategory(category_id) }
     }
+    suspend fun getPostsBySearch(query: String?): Resource<GetPostsResponse> {
+        return SafeApiCall.execute { mainApi.getPostsBySearch(query) }
+    }
 
     suspend fun getPostsByTag(tag_id: String): Resource<GetPostsResponse> {
         return SafeApiCall.execute { mainApi.getPostsByTag("[$tag_id]" ) }

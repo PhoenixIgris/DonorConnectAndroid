@@ -15,6 +15,7 @@ object ApiEndPoints {
     const val CREATE_POST = "api/post/createPost"
     const val GET_ALL_POST = "api/post/getAllPosts"
     const val GET_POST_BY_CATEGORY = "api/post/getPostsByCategoryId"
+    const val GET_POST_BY_SEARCH = "api/post/searchPosts"
     const val GET_POST_BY_TAG = "api/post/getPostsByTags"
     const val GET_POST = "api/post/getPost"
     const val REQUEST_POST = "api/post/requestPost"

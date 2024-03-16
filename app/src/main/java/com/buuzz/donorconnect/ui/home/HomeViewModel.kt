@@ -33,6 +33,7 @@ class HomeViewModel @Inject constructor(
             }
         }
     }
+
     fun getCategoryList(onSuccess: (List<Category>) -> Unit) {
         viewModelScope.launch {
             val list = contentRepository.getCategoryList()
@@ -41,11 +42,33 @@ class HomeViewModel @Inject constructor(
             }
         }
     }
+
     fun getPostsByCategory(categoryId: String?, apiCallListener: ApiCallListener) {
         viewModelScope.launch {
             when (val response =
                 if (categoryId == null) contentRepository.getAllPosts() else contentRepository.getPostsByCategory(
                     categoryId
+                )) {
+                is Resource.Failure -> {
+                    apiCallListener.onError(response.errorMsg)
+                }
+
+                is Resource.Success -> {
+                    if (response.value.success == true) {
+                        apiCallListener.onSuccess(Gson().toJson(response.value.posts))
+                    } else {
+                        apiCallListener.onError(response.value.message)
+                    }
+                }
+            }
+        }
+    }
+
+    fun getPostsBySearch(query: String?, apiCallListener: ApiCallListener) {
+        viewModelScope.launch {
+            when (val response =
+                contentRepository.getPostsBySearch(
+                    query
                 )) {
                 is Resource.Failure -> {
                     apiCallListener.onError(response.errorMsg)
@@ -82,6 +105,7 @@ class HomeViewModel @Inject constructor(
             }
         }
     }
+
     fun getPostById(postId: String?, apiCallListener: ApiCallListener) {
         viewModelScope.launch {
             when (val response =

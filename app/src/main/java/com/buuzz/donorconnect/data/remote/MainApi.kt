@@ -70,6 +70,11 @@ interface MainApi {
         @Field("requiredtagids") requiredTagIds: String?
     ): Response<GetPostsResponse>
 
+    @FormUrlEncoded
+    @POST(ApiEndPoints.GET_POST_BY_SEARCH)
+    suspend fun getPostsBySearch(
+        @Field("search_query") query: String?
+    ): Response<GetPostsResponse>
 
     @FormUrlEncoded
     @POST(ApiEndPoints.GET_POST)

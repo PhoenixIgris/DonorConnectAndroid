@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import android.widget.ListView
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -71,6 +72,23 @@ class HomeFragment : BaseFragment(), OnActionClicked {
         binding.filterSearch.setOnClickListener {
             showFilterOptions()
         }
+        binding.searchView.setOnCloseListener {
+            fetchPostByCategory("All")
+            return@setOnCloseListener false
+        }
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (!query.isNullOrEmpty()) {
+                    getPostsBySearchQuery(query)
+                }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+
+        })
     }
 
     private fun setCategoryTabs() {
@@ -130,6 +148,26 @@ class HomeFragment : BaseFragment(), OnActionClicked {
 
             override fun onError(errorMessage: String?) {
                 binding.loading.isVisible = false
+                showTopSnackBar(binding.root, errorMessage ?: "Failed to Fetch Posts")
+            }
+
+        })
+    }
+
+    private fun getPostsBySearchQuery(query: String) {
+        binding.swipeRefreshLayout.isRefreshing = true
+        viewModel.getPostsBySearch(query, object : ApiCallListener {
+            override fun onSuccess(response: String?) {
+                val listType = object : TypeToken<List<Post>>() {}.type
+                val postList = Gson().fromJson<List<Post>>(response, listType)
+                if (!postList.isNullOrEmpty()) {
+                    setPostList(postList)
+                }
+                binding.swipeRefreshLayout.isRefreshing = false
+            }
+
+            override fun onError(errorMessage: String?) {
+                binding.swipeRefreshLayout.isRefreshing = false
                 showTopSnackBar(binding.root, errorMessage ?: "Failed to Fetch Posts")
             }
 
