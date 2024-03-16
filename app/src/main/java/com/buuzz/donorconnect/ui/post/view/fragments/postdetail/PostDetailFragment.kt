@@ -163,13 +163,12 @@ class PostDetailFragment : BaseFragment(), OnActionClicked {
     private fun openDeliveryDetail(deliveryDetails: DeliveryDetails?) {
         deliveryDetails?.let {
             showErrorDialog(
-                "${deliveryDetails.message}\nAddress: ${deliveryDetails.address}\nContact Number: ${deliveryDetails.contact_number}\n\nCode: ${deliveryDetails.queue_code}\n",
+                "${deliveryDetails.message}\n\n Address: ${deliveryDetails.address?.name}\nContact Number: ${deliveryDetails.contact_number ?: "+977-9877777777"}\n\nCode: ${postDetail?.queue_code}\n",
                 false,
                 yesBtnClicked = {
                     dismissErrorDialog()
                     requireActivity().onBackPressedDispatcher.onBackPressed()
                 }, noBtnClicked = {
-                    cancelPost()
                     dismissErrorDialog()
                 })
         }

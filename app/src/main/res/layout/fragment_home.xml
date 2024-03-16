@@ -12,7 +12,6 @@
         android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="?attr/actionBarSize"
         android:background="@color/white">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -20,13 +19,43 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             app:contentScrim="@color/white"
+            android:fitsSystemWindows="true"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
+            <RelativeLayout
+                android:id="@+id/tool_bar"
+                app:layout_collapseMode="pin"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_alignParentTop="true"
+                android:background="@color/white">
+
+                <ImageView
+                    android:id="@+id/other_btn"
+                    android:layout_width="@dimen/_50dp"
+                    android:layout_height="@dimen/_50dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/circle_background"
+                    android:padding="@dimen/_10dp"
+                    android:src="@drawable/ic_filter" />
+
+                <ImageView
+                    android:id="@+id/notification_btn"
+                    android:layout_width="@dimen/_50dp"
+                    android:layout_height="@dimen/_50dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/circle_background"
+                    android:padding="@dimen/_10dp"
+                    android:src="@drawable/ic_map" />
+            </RelativeLayout>
             <LinearLayout
                 android:id="@+id/header_lyt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/other_btn"
+                app:layout_collapseMode="parallax"
+                android:layout_marginTop="?attr/actionBarSize"
                 android:orientation="vertical">
 
                 <TextView
@@ -112,38 +141,12 @@
             app:tabTextColor="@color/black" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <RelativeLayout
-        android:id="@+id/tool_bar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_alignParentTop="true"
-        android:background="@color/white">
 
-        <ImageView
-            android:id="@+id/other_btn"
-            android:layout_width="@dimen/_50dp"
-            android:layout_height="@dimen/_50dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:background="@drawable/circle_background"
-            android:padding="@dimen/_10dp"
-            android:src="@drawable/ic_filter" />
-
-        <ImageView
-            android:id="@+id/notification_btn"
-            android:layout_width="@dimen/_50dp"
-            android:layout_height="@dimen/_50dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:background="@drawable/circle_background"
-            android:padding="@dimen/_10dp"
-            android:src="@drawable/ic_notification" />
-    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/main_body"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <ProgressBar

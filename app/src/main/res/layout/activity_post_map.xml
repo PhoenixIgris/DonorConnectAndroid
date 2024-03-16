@@ -7,7 +7,7 @@
     tools:context=".ui.postmap.PostMapActivity">
 
     <WebView
-        android:id="@+id/map"
+        android:id="@+id/webView"
         android:backgroundTint="@color/red_400"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

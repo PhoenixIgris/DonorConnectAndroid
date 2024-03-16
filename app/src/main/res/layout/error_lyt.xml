@@ -43,12 +43,11 @@
         style="@style/Base.Theme.DonorConnect.ButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_16dp"
+        android:layout_marginTop="@dimen/_20dp"
         android:text="Back to Home" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10dp"
         android:src="@drawable/error_placeholder" />
 </LinearLayout>
